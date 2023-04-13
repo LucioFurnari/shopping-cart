@@ -4,17 +4,19 @@ import ErrorPage from './error.page';
 import Cart from './components/Cart';
 import Shop from './components/Shop'
 import dataBase from './components/db';
+import { useState } from "react";
 
 function App() {
-  const cart = []
+  const [cart,setCart] = useState([]);
   function buyProduct(ev) {
     const {id} = ev.target;
-    dataBase.map((item, index) => {
+    const newArr = dataBase.filter((item, index) => {
     if(index == id) {
-      cart.push(item)
+      return item
     }
-  })
-  console.log(cart)
+    })
+    setCart([...cart, ...newArr])
+    console.log(cart)
 }
 
 
