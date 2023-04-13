@@ -1,9 +1,10 @@
 export default function Card(props) {
-  const { name, price } = props;
+  const { name, price, id , handleClick} = props;
   return (
-    <div>
+    <div className="card">
       <h2>{name}</h2>
       <p>{price}</p>
+      <button id={id} onClick={handleClick}>Buy</button>
     </div>
   )
 }
