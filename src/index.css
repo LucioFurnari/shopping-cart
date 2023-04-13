@@ -52,6 +52,7 @@ table {
   --navBgColor: rgba(170, 170, 170, 0.5);
   --boxShadow: rgba(25,25,25,0.3);
   --linkWhite: rgb(240,240,240);
+  --fontWhite: rgb(240,240,240);
   --linkHoverColor: rgb(160, 118, 0);
 }
 body {
@@ -59,8 +60,12 @@ body {
   background-image: url('./assets/images/background.jpg');
   background-repeat: no-repeat;
   background-size: cover;
+  animation: slide 10s infinite;
 }
-
+h1{
+  font-size: 1.5rem;
+  color: var(--fontWhite);
+}
 nav {
   background-color: var(--navBgColor);
   backdrop-filter: blur(20px);
@@ -77,4 +82,17 @@ a {
 }
 a:hover {
   color: var(--linkHoverColor);
+}
+/*---------------------------------------------------------------------------------------*/
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(3, 250px);
+  gap: 2rem;
+}
+.card{
+  color: var(--fontWhite);
+  font-size: 1.2rem;
+  text-align: center;
+  border: 1px solid var(--fontWhite);
+  padding: 1.2rem;
 }
