@@ -43,6 +43,8 @@ function App() {
     setCart(cart.filter((item, index) => {
       if(index != id) {
         return item
+      } else {
+        setTotal(total - item.price)
       }
     }))
   }
