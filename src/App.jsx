@@ -10,6 +10,7 @@ import { createElement } from "react";
 
 function App() {
   const [cart,setCart] = useState([]);
+  const [total, setTotal] = useState(0);
   function buyProduct(ev) {
     const {id} = ev.target;
     const newItem = shop.filter((item,index) => {
@@ -21,14 +22,20 @@ function App() {
     if (list.length != 0) {
       let arr = cart.map(item => {
         if(item.name == newItem[0].name) {
-          return {...item, price: item.price + newItem[0].price}
+          setTotal(total + newItem[0].price)
+          return {...item, price: item.price + newItem[0].price, quantity: item.quantity + 1}
         } else {
           return item
         }
       })
       setCart(arr)
     } else {
-      setCart([...cart, ...newItem])
+      setCart([...cart, {
+        name: newItem[0].name,
+        price: newItem[0].price,
+        quantity: 1
+      }])
+      setTotal(total + newItem[0].price)
     }
   }
 
@@ -38,7 +45,7 @@ function App() {
     <Routes>
       <Route path='/' element={<Root />} errorElement={<ErrorPage />}/>
       <Route path='/shop' element={<Shop func={buyProduct}/>} />
-      <Route path='/cart' element={<Cart list={cart}/>}/>
+      <Route path='/cart' element={<Cart list={cart} total={total}/>}/>
     </Routes>
     </div>
   )
