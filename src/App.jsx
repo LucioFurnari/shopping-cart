@@ -38,6 +38,14 @@ function App() {
       setTotal(total + newItem[0].price)
     }
   }
+  function removeProduct(ev) {
+    const { id } = ev.target;
+    setCart(cart.filter((item, index) => {
+      if(index != id) {
+        return item
+      }
+    }))
+  }
 
   return (
     <div className="App">
@@ -45,7 +53,7 @@ function App() {
     <Routes>
       <Route path='/' element={<Root />} errorElement={<ErrorPage />}/>
       <Route path='/shop' element={<Shop func={buyProduct}/>} />
-      <Route path='/cart' element={<Cart list={cart} total={total}/>}/>
+      <Route path='/cart' element={<Cart list={cart} total={total} handleDelete={removeProduct}/>}/>
     </Routes>
     </div>
   )
