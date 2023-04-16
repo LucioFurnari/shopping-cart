@@ -5,11 +5,12 @@ export default function Cart(props) {
       <h1>Welcome to the cart</h1>
       <div className="grid-container">
         {list.map((item, index) => {
-        const {name, price, quantity} = item;
+        const {name, price, quantity, img} = item;
           return (
           <div className="card" key={index}>
             <p>{name}</p>
             <p>{price} $</p>
+            <img src={img}></img>
             <p>{quantity > 1 ? 'x'+quantity : null}</p>
             <button id={index} onClick={handleDelete}>X</button>
           </div>
