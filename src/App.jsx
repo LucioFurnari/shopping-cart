@@ -5,25 +5,25 @@ import Cart from './components/Cart';
 import Shop from './components/Shop'
 import Nav from './components/Nav'
 import shop from './components/db';
-import { useEffect, useState } from "react";
-import { createElement } from "react";
+import { useState } from "react";
 
 function App() {
   const [cart,setCart] = useState([]);
   const [total, setTotal] = useState(0);
-  function buyProduct(ev) {
+  function buyProduct(ev, quantity) {
     const {id} = ev.target;
     const newItem = shop.filter((item,index) => {
       if(index == id) {
         return item
       }
     })
+    console.log(quantity)
     const list = cart.filter((item) => {if(item.name == newItem[0].name)return item})
     if (list.length != 0) {
       let arr = cart.map(item => {
         if(item.name == newItem[0].name) {
-          setTotal(total + newItem[0].price)
-          return {...item, price: item.price + newItem[0].price, quantity: item.quantity + 1}
+          setTotal(total + (newItem[0].price*quantity))
+          return {...item, price: item.price + (newItem[0].price*quantity), quantity: item.quantity + quantity}
         } else {
           return item
         }
@@ -32,10 +32,10 @@ function App() {
     } else {
       setCart([...cart, {
         name: newItem[0].name,
-        price: newItem[0].price,
-        quantity: 1
+        price: (newItem[0].price*quantity),
+        quantity,
       }])
-      setTotal(total + newItem[0].price)
+      setTotal(total + (newItem[0].price*quantity))
     }
   }
   function removeProduct(ev) {
