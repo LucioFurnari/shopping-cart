@@ -1,5 +1,5 @@
 export default function Cart(props) {
-  const { list, total, handleDelete } = props
+  const { list, total, handleDelete, handlePurchase } = props
   return(
     <div>
       <h1>Welcome to the cart</h1>
@@ -18,6 +18,7 @@ export default function Cart(props) {
       </div>
       <div>
         <p>Total price: {total}</p>
+        <button onClick={handlePurchase}>Purchase</button>
       </div>
     </div>
   )
