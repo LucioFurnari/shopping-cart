@@ -33,6 +33,7 @@ function App() {
       setCart([...cart, {
         name: newItem[0].name,
         price: (newItem[0].price*quantity),
+        img: newItem[0].img,
         quantity,
       }])
       setTotal(total + (newItem[0].price*quantity))
