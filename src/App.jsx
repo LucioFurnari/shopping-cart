@@ -48,6 +48,10 @@ function App() {
       }
     }))
   }
+  function completePurchase() {
+    setCart([])
+    setTotal(0)
+  }
 
   return (
     <div className="App">
@@ -55,7 +59,11 @@ function App() {
     <Routes>
       <Route path='/' element={<Root />} errorElement={<ErrorPage />}/>
       <Route path='/shop' element={<Shop func={buyProduct}/>} />
-      <Route path='/cart' element={<Cart list={cart} total={total} handleDelete={removeProduct}/>}/>
+      <Route path='/cart' element={<Cart list={cart}
+      total={total}
+      handleDelete={removeProduct}
+      handlePurchase={completePurchase}
+      />}/>
     </Routes>
     </div>
   )
