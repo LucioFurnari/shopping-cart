@@ -83,6 +83,9 @@ a {
 a:hover {
   color: var(--linkHoverColor);
 }
+p {
+  color: var(--fontWhite);
+}
 /*---------------------------------------------------------------------------------------*/
 .grid-container {
   display: grid;
@@ -90,9 +93,22 @@ a:hover {
   gap: 2rem;
 }
 .card{
+  box-sizing: border-box;
   color: var(--fontWhite);
   font-size: 1.2rem;
   text-align: center;
   border: 1px solid var(--fontWhite);
   padding: 1.2rem;
+  min-height: 120px;
+}
+.card button {
+  border: none;
+  background: transparent;
+  color: var(--fontWhite);
+  font-size: 1.2rem;
+  transition: color 0.2s, border 0.2s;
+}
+.card button:hover {
+  color: var(--linkHoverColor);
+  border: 1px solid var(--linkHoverColor);
 }
