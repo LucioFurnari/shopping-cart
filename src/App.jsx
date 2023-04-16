@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import {Root, loader as RootLoader} from './routes/root';
-import ErrorPage from './error.page';
+import ErrorPage from './routes/error.page';
 import Cart from './components/Cart';
 import Shop from './components/Shop'
 import Nav from './components/Nav'
@@ -58,13 +58,14 @@ function App() {
     <div className="App">
     <Nav />
     <Routes>
-      <Route path='/' element={<Root />} errorElement={<ErrorPage />}/>
+      <Route path='/' element={<Root />} />
       <Route path='/shop' element={<Shop func={buyProduct}/>} />
       <Route path='/cart' element={<Cart list={cart}
       total={total}
       handleDelete={removeProduct}
       handlePurchase={completePurchase}
       />}/>
+      <Route path="/*" element={<ErrorPage />}/>
     </Routes>
     </div>
   )
