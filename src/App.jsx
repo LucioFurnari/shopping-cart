@@ -9,7 +9,8 @@ import { useState } from "react";
 
 function App() {
   const [cart,setCart] = useState([]);
-  const [total, setTotal] = useState(0);
+  const [totalPrice, setTotalPrice] = useState(0);
+  const [cartTotal, setCartTotal] = useState(0);
   function buyProduct(ev, quantity) {
     const {id} = ev.target;
     const newItem = shop.filter((item,index) => {
@@ -17,12 +18,12 @@ function App() {
         return item
       }
     })
-    console.log(quantity)
     const list = cart.filter((item) => {if(item.name == newItem[0].name)return item})
     if (list.length != 0) {
       let arr = cart.map(item => {
         if(item.name == newItem[0].name) {
-          setTotal(total + (newItem[0].price*quantity))
+          setTotalPrice(totalPrice + (newItem[0].price*quantity))
+          setCartTotal(cartTotal + quantity)
           return {...item, price: item.price + (newItem[0].price*quantity), quantity: item.quantity + quantity}
         } else {
           return item
@@ -36,7 +37,8 @@ function App() {
         img: newItem[0].img,
         quantity,
       }])
-      setTotal(total + (newItem[0].price*quantity))
+      setCartTotal(cartTotal + quantity)
+      setTotalPrice(totalPrice + (newItem[0].price*quantity))
     }
   }
   function removeProduct(ev) {
@@ -51,17 +53,17 @@ function App() {
   }
   function completePurchase() {
     setCart([])
-    setTotal(0)
+    setTotalPrice(0)
   }
 
   return (
     <div className="App">
-    <Nav />
+    <Nav total={cartTotal}/>
     <Routes>
       <Route path='/' element={<Root />} />
       <Route path='/shop' element={<Shop func={buyProduct}/>} />
       <Route path='/cart' element={<Cart list={cart}
-      total={total}
+      total={totalPrice}
       handleDelete={removeProduct}
       handlePurchase={completePurchase}
       />}/>
