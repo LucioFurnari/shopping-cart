@@ -41,13 +41,14 @@ function App() {
       setTotalPrice(totalPrice + (newItem[0].price*quantity))
     }
   }
-  function removeProduct(ev) {
+  function removeProduct(ev, quantity) {
     const { id } = ev.target;
     setCart(cart.filter((item, index) => {
       if(index != id) {
         return item
       } else {
-        setTotal(total - item.price)
+        setCartTotal(cartTotal - quantity)
+        setTotalPrice(totalPrice - item.price)
       }
     }))
   }
