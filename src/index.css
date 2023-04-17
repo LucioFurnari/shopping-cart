@@ -54,6 +54,7 @@ table {
   --linkWhite: rgb(240,240,240);
   --fontWhite: rgb(240,240,240);
   --linkHoverColor: rgb(160, 118, 0);
+  --bgBlack: rgb(25,25,25);
 }
 body {
   box-sizing: border-box;
@@ -83,6 +84,9 @@ a {
 a:hover {
   color: var(--linkHoverColor);
 }
+button {
+  cursor: pointer;
+}
 p {
   color: var(--fontWhite);
 }
@@ -95,20 +99,37 @@ p {
 .card{
   box-sizing: border-box;
   color: var(--fontWhite);
+  background-color: var(--bgBlack);
   font-size: 1.2rem;
   text-align: center;
   border: 1px solid var(--fontWhite);
   padding: 1.2rem;
   min-height: 120px;
 }
+.card img {
+  width: 100%;
+  height: auto;
+  margin-top: 0.8rem;
+}
 .card button {
-  border: none;
+  border: 1px solid var(--fontWhite);
   background: transparent;
   color: var(--fontWhite);
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   transition: color 0.2s, border 0.2s;
+  margin: 0.5rem 0;
 }
 .card button:hover {
   color: var(--linkHoverColor);
   border: 1px solid var(--linkHoverColor);
+}
+/*---------------------------------------------------------------------------------------*/
+
+.quantity-container span {
+  display: inline-block;
+  margin: 0 1rem;
+  font-size: 1.3rem;
+}
+.quantity-container button {
+  padding: 0 0.5rem;
 }
