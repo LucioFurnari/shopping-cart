@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom"
 import dataBase from "./db"
 import Card from "./Card"
 
@@ -7,7 +6,6 @@ export default function Shop(props) {
   return (
     <div>
       <h1>Welcome to Shop</h1>
-      <Link to='/'>To Home</Link>
       <div className="grid-container">
         {dataBase.map((item,index) => {
           const { n } = item;
