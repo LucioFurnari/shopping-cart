@@ -55,6 +55,7 @@ function App() {
   function completePurchase() {
     setCart([])
     setTotalPrice(0)
+    setCartTotal(0)
   }
 
   return (
