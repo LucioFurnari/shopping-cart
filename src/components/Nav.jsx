@@ -5,7 +5,7 @@ export default function Nav(props) {
     <nav>
       <Link to='/'>Home</Link>
       <Link to='/shop'>Shop</Link>
-      <Link to='/cart'>Cart{total > 0 ? total : null}</Link>
+      <Link to='/cart' >Cart {total > 0 ? total : null}</Link>
     </nav>
   )
 }
