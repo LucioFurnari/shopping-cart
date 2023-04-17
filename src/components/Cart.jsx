@@ -11,8 +11,8 @@ export default function Cart(props) {
             <p>{name}</p>
             <p>{price} $</p>
             <img src={img}></img>
-            <p>{quantity > 1 ? 'x'+quantity : null}</p>
-            <button id={index} onClick={handleDelete}>X</button>
+            <p>{quantity > 1 ? 'x' + quantity : null}</p>
+            <button id={index} onClick={(ev) => handleDelete(ev, quantity)}>X</button>
           </div>
           )
         })}
