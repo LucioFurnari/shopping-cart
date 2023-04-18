@@ -57,6 +57,7 @@ table {
   --linkHoverColor: rgb(160, 118, 0);
   --bgBlack: rgb(25,25,25);
   --bgWithe: rgb(230,230,230);
+  --cartSpanColor: rgb(233, 190, 0);
 }
 body {
   background-color: var(--bgBlack);
@@ -82,7 +83,17 @@ nav {
   align-items: center;
   justify-content: space-around;
 }
-
+.nav-link-container {
+  display: flex;
+}
+.cart-link{
+  position: relative;
+}
+.cart-link span {
+  position: absolute;
+  top: 2px;
+  color: var(--cartSpanColor);
+}
 a {
   display: inline-block;
   font-size: 1.5rem;
@@ -115,6 +126,7 @@ p {
 .grid-container {
   display: grid;
   grid-template-columns: repeat(3, 250px);
+  justify-content: center;
   gap: 2rem;
   padding: 1rem;
 }
@@ -127,6 +139,13 @@ p {
   border: 1px solid var(--fontWhite);
   padding: 1.2rem;
   min-height: 120px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.card p {
+  flex: 1;
 }
 .card img {
   width: 100%;
@@ -157,6 +176,25 @@ p {
 }
 
 /*---------------------------------------------------------------------------------------*/
+.cart-purchase-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.cart-purchase-section button{
+  border: 1px solid var(--linkWhite);
+  background: transparent;
+  cursor: pointer;
+  color: var(--fontWhite);
+  font-size: 1.3rem;
+  padding: 1rem;
+  transition: color 0.2s, border 0.2s;
+}
+.cart-purchase-section button:hover {
+  color: var(--linkHoverColor);
+  border-color: var(--linkHoverColor);
+}
 .empty-cart {
   display: flex;
   flex-direction: column;
