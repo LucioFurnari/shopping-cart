@@ -53,12 +53,14 @@ table {
   --boxShadow: rgba(25,25,25,0.3);
   --linkWhite: rgb(240,240,240);
   --fontWhite: rgb(240,240,240);
+  --fontBlack: rgb(30,30,30);
   --linkHoverColor: rgb(160, 118, 0);
   --bgBlack: rgb(25,25,25);
+  --bgWithe: rgb(230,230,230);
 }
 body {
+  background-color: var(--bgBlack);
   box-sizing: border-box;
-  background-image: url('./assets/images/background.jpg');
   background-repeat: no-repeat;
   background-size: cover;
   animation: slide 10s infinite;
@@ -91,10 +93,18 @@ p {
   color: var(--fontWhite);
 }
 /*---------------------------------------------------------------------------------------*/
+
+.home {
+  height: calc(100vh - 62px);
+  background-image: url('./assets/images/background.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
 .grid-container {
   display: grid;
   grid-template-columns: repeat(3, 250px);
   gap: 2rem;
+  padding: 1rem;
 }
 .card{
   box-sizing: border-box;
@@ -132,4 +142,22 @@ p {
 }
 .quantity-container button {
   padding: 0 0.5rem;
+}
+
+/*---------------------------------------------------------------------------------------*/
+.empty-cart {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1.2rem 0;
+  background-color: var(--bgWithe);
+}
+.empty-cart p {
+  color: var(--fontBlack);
+  font-size: 1.6rem;
+  text-align: center;
+  margin-top: 1.2rem;
+}
+.empty-cart img {
+  width: 9rem;
 }
