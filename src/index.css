@@ -115,7 +115,7 @@ p {
 /*---------------------------------------------------------------------------------------*/
 
 .home {
-  height: calc(100vh - 62px);
+  height: calc(100vh - 66px);
   background-image: url('./assets/images/background.jpg');
   background-repeat: no-repeat;
   background-size: cover;
