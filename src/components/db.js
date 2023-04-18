@@ -1,6 +1,8 @@
 import chocolateBar from '../assets/images/chocolatebarra.jpg'
 import chocolateMani from '../assets/images/chocolatemani.jpg'
 import chocolateMenta from '../assets/images/chocolatementa.jpg'
+import icedCoffe from '../assets/images/cafehelado.jpg'
+import espresso from '../assets/images/espresso.jpg'
 const dataBase = [
   {
     name: 'Chocolate Bar',
@@ -19,6 +21,18 @@ const dataBase = [
     img: chocolateMenta,
     price: 175,
     n: 3,
+  },
+  {
+    name: 'Iced coffee',
+    img: icedCoffe,
+    price: 120,
+    n: 4,
+  },
+  {
+    name: 'Espresso',
+    img: espresso,
+    price: 120,
+    n: 5,
   }
 ]
 
