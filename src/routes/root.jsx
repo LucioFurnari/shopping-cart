@@ -6,8 +6,8 @@ export async function loader() {
 
 export function Root() {
   return(
-    <div>
-      <h1>Welcome to Home</h1>
+    <div className="home">
+      <h2>Taste good, does good</h2>
     </div>
   )
 }
