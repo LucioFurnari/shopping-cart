@@ -5,19 +5,26 @@ Shopping
 
 Technologies used:
 -
-- Vite
-- React
-- Css
+- Vite.
+- Javascript
+- Css.
 
 <!-- API used:  -->
 
-<!-- Libraries: -->
-
+Libraries:
+- React.
+- React Route.
+- React Icons.
 
 <!-- Features: -->
 
- Todo:
-
+<!-- Todo:
+ - Add more products.
+ - Improve the style of the page.
+ - Add a form/ or other thing to the user buy their products of the cart.
+ - Add a footer.
+ - Add more content to the home page. Maybe some images and info, maybe a image slider.
+-->
 <!-- ❌ ✔️ ⭕ ❓ -->
 
 
