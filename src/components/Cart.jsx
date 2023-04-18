@@ -4,7 +4,6 @@ export default function Cart(props) {
   const { list, total, handleDelete, handlePurchase } = props
   return(
     <div>
-      <h1>Welcome to the cart</h1>
       {(list.length > 0)
       ? 
       <div className="grid-container">
@@ -27,10 +26,14 @@ export default function Cart(props) {
         <p>The cart is empty</p>
       </div>
       }
-      <div>
+      {
+        (list.length > 0)
+        &&
+        <div>
         <p>Total price: {total}</p>
         <button onClick={handlePurchase}>Purchase</button>
       </div>
+      } 
     </div>
   )
 }
