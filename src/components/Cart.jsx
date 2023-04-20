@@ -29,10 +29,10 @@ export default function Cart(props) {
       {
         (list.length > 0)
         &&
-        <div>
-        <p>Total price: {total}</p>
-        <button onClick={handlePurchase}>Purchase</button>
-      </div>
+        <div className='cart-purchase-section'>
+          <p>Total price: {total}</p>
+          <button onClick={handlePurchase}>Purchase</button>
+        </div>
       } 
     </div>
   )
