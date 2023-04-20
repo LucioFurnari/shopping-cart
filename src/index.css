@@ -72,7 +72,7 @@ h1{
 }
 h2 {
   font-size: 6rem;
-  width: 30rem;
+  max-width: 30rem;
   text-align: center;
   color: var(--fontWhite);
 }
@@ -82,12 +82,14 @@ nav {
   display: flex;
   align-items: center;
   justify-content: space-around;
+  padding: 0.2rem 0;
 }
 .nav-link-container {
   display: flex;
 }
 .cart-link{
   position: relative;
+  height: 24px;
 }
 .cart-link span {
   position: absolute;
@@ -102,9 +104,26 @@ a {
   margin-left: 1.2rem;
   padding: 1.2rem 0;
   transition: color 0.2s;
+  position: relative;
+}
+a::after {
+  content: '';
+  display: block;
+  position: absolute;
+  bottom: 0;
+  width: 20px;
+  left: 0;
+  border-top: 2px solid none;
 }
 a:hover {
   color: var(--linkHoverColor);
+}
+.nav-link-container a:focus {
+  color: var(--linkHoverColor);
+  border-image: linear-gradient(to right, 90deg, rgb(224, 255, 24) 0%, rgba(255,255,255,0) 100%);
+}
+.nav-link-container a:focus::after {
+  border-top: 2px solid var(--bgBlack);
 }
 button {
   cursor: pointer;
@@ -120,8 +139,23 @@ p {
   background-repeat: no-repeat;
   background-size: cover;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+.home a {
+  display: inline-block;
+  font-size: 1.8rem;
+  margin-top: 1.2rem;
+  padding: 1rem;
+  border: none;
+  border-radius: 6px;
+  background-color: var(--bgBlack);
+  color: var(--fontWhite);
+  transition: box-shadow 0.2s;
+}
+.home a:hover {
+  box-shadow: 1px 1px 10px var(--linkHoverColor);
 }
 .grid-container {
   display: grid;
@@ -210,4 +244,26 @@ p {
 }
 .empty-cart img {
   width: 9rem;
+}
+
+/*--------------------------------------- MEDIA QUERY ------------------------------------------------*/
+
+@media (max-width: 850px){
+  .grid-container {
+    grid-template-columns: repeat(2, 250px);
+  }
+}
+@media (max-width: 450px){
+  .home h2 {
+    font-size: 4rem;
+  }
+  .home a {
+    transition: none;
+  }
+  .home a:active {
+    box-shadow: 1px 1px 10px var(--linkHoverColor);
+  }
+  .grid-container {
+    grid-template-columns: 250px;
+  }
 }
