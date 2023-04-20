@@ -4,7 +4,7 @@ import Card from "./Card"
 export default function Shop(props) {
   const {func} = props
   return (
-    <div>
+    <div className="shop-section">
       <h1>Welcome to Shop</h1>
       <div className="grid-container">
         {dataBase.map((item,index) => {

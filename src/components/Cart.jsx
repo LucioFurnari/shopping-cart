@@ -3,7 +3,7 @@ import emptyCart from '../assets/images/empty-cart.svg'
 export default function Cart(props) {
   const { list, total, handleDelete, handlePurchase } = props
   return(
-    <div>
+    <div className='cart-section'>
       {(list.length > 0)
       ? 
       <div className="grid-container">
