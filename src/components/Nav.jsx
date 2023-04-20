@@ -5,13 +5,13 @@ export default function Nav(props) {
   return(
     <nav>
       <h1>CHOCOLAT</h1>
-      <div className="nav-link-container">
-      <Link to='/'>Home</Link>
-      <Link to='/shop'>Shop</Link>
-      <Link to='/cart' className="cart-link">
+      <ul className="nav-link-container">
+        <li><Link to='/'>Home</Link></li>
+        <li><Link to='/shop'>Shop</Link></li>
+        <li><Link to='/cart' className="cart-link">
         <AiOutlineShoppingCart /> {total > 0 ? <span>{total}</span> : null}
-      </Link>
-      </div>
+        </Link></li>
+      </ul>
     </nav>
   )
 }
