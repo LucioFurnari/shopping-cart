@@ -11,7 +11,7 @@ export default function Card(props) {
   }
   return (
     <div className="card">
-      <h2>{name}</h2>
+      <p>{name}</p>
       <p>{price} $</p>
       <img src={img} ></img>
       <button id={id} onClick={(ev) => handleClick(ev, quantity)}>Buy</button>
