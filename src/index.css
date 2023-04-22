@@ -295,7 +295,16 @@ p {
 .empty-cart img {
   width: 9rem;
 }
-
+/*--------------------------------------- FOOTER ------------------------------------------------*/
+footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+footer ul {
+  display: flex;
+  align-items: center;
+}
 /*--------------------------------------- MEDIA QUERY ------------------------------------------------*/
 
 @media (max-width: 850px){
