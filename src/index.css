@@ -57,8 +57,9 @@ table {
   --linkHoverColor: rgb(160, 118, 0);
   --bgBlack: rgb(25,25,25);
   --bgWithe: rgb(230,230,230);
-  --cartSpanColor: rgb(233, 190, 0);
   --bgGolden: rgb(228, 175, 0);
+  --bgBrown: rgb(174, 84, 0);
+  --cartSpanColor: rgb(233, 190, 0);
 }
 body {
   background-color: var(--bgBlack);
@@ -170,13 +171,33 @@ p {
   gap: 2rem;
   padding: 1rem;
 }
+.hero-section {
+  display: flex;
+  align-items: center;
+  padding: 0 12rem;
+  margin-top: 4rem;
+}
+.hero-section h2 {
+  text-align: left;
+  padding-bottom: 1.6rem;
+}
+.hero-section p {
+  font-size: 1.6rem;
+  line-height: 1.6;
+}
+.hero-section img {
+  width: 20rem;
+  height: auto;
+  margin-left: 12rem;
+  border-radius: 6px;
+}
+/*--------------------------------------- CARD ------------------------------------------------*/
 .card{
   box-sizing: border-box;
-  color: var(--fontWhite);
-  background-color: var(--bgBlack);
+  background-color: var(--bgBrown);
   font-size: 1.2rem;
   text-align: center;
-  border: 1px solid var(--fontWhite);
+  border: 1px solid var(--fontBlack);
 
   opacity: 0;
   transform: translateX(-160px);
@@ -186,6 +207,7 @@ p {
   animation-fill-mode: forwards;
 }
 .card p {
+  color: var(--fontBlack);
   text-align: left;
   flex: 1;
   padding: 0.6rem;
@@ -222,8 +244,8 @@ p {
   margin: 1rem 0;
 }
 .card .buy-btn:hover {
-  color: var(--fontBlack);
-  background-color: var(--linkHoverColor);
+  color: var(--fontWhite);
+  background-color: var(--bgBlack);
   border: none;
 }
 /*---------------------------------------------------------------------------------------*/
@@ -311,6 +333,9 @@ footer {
 footer ul {
   display: flex;
   align-items: center;
+}
+footer ul a {
+  cursor: pointer;
 }
 /*--------------------------------------- MEDIA QUERY ------------------------------------------------*/
 
