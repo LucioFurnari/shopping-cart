@@ -191,6 +191,38 @@ p {
   margin-left: 12rem;
   border-radius: 6px;
 }
+.gallery-section h2 {
+  margin-left: 12rem;
+  text-align: left;
+}
+.gallery-grid {
+  margin-bottom: 2rem;
+  display: grid;
+  gap: 2rem;
+  justify-content: center;
+  grid-template-columns: repeat(3, minmax(250px, 400px));
+
+  grid-template-areas: 
+  'img1 img2 img3'
+  'img5 img4 img4'
+  ;
+}
+.gallery-grid img {
+  width: 100%;
+  height: auto;
+  transition: opacity 0.3s;
+}
+.gallery-grid img:hover::after {
+  content: 'Cocoa';
+  background-color: black;
+  color: black;
+  opacity: 0.5;
+}
+.img_1 {grid-area: img1;}
+.img_2 {grid-area: img2;}
+.img_3 {grid-area: img3;}
+.img_4 {grid-area: img4;}
+.img_5 {grid-area: img5;}
 /*--------------------------------------- CARD ------------------------------------------------*/
 .card{
   box-sizing: border-box;
