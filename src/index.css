@@ -197,10 +197,11 @@ p {
 }
 .gallery-grid {
   margin-bottom: 2rem;
+  padding: 0 12rem;
   display: grid;
   gap: 2rem;
   justify-content: center;
-  grid-template-columns: repeat(3, minmax(50px, 400px));
+  grid-template-columns: repeat(3, minmax(200, 1fr));
   grid-template-rows: auto;
   grid-template-areas: 
   'img1 img2 img3'
@@ -379,13 +380,26 @@ footer ul a {
   .gallery-section {
     padding: 0 2rem;
   }
+  .gallery-grid {
+    grid-template-columns: 1fr;
+    padding: 0 1rem;
+    gap: 0;
+    grid-template-areas:
+    'img1'
+    'img2'
+    'img3'
+    'img5'
+    'img4';
+  }
   .gallery-section h2 {
-    margin-left: 4rem;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+    margin-left: 1rem;
     font-size: 4rem;
   }
   .hero-section {
     flex-direction: column;
-    padding: 0 4rem;
+    padding: 0 3rem;
   }
   .hero-section h2 {
     font-size: 4rem;
@@ -394,8 +408,9 @@ footer ul a {
     font-size: 1.2rem;
   }
   .hero-section img {
-    width: 80%;
-    margin: 0;
+    display: none;
+    /* width: 70%;
+    margin: 1rem 0; */
   }
 }
 @media (max-width: 450px){
@@ -407,6 +422,9 @@ footer ul a {
   }
   .home a:active {
     box-shadow: 1px 1px 10px var(--linkHoverColor);
+  }
+  .gallery-section h2 {
+    font-size: 2.6rem;
   }
   .grid-container {
     grid-template-columns: 280px;
