@@ -11,15 +11,20 @@ export default function Card(props) {
   }
   return (
     <div className="card">
+      <img src={img} ></img>
       <p>{name}</p>
       <p>{price} $</p>
-      <img src={img} ></img>
-      <button id={id} onClick={(ev) => handleClick(ev, quantity)}>Buy</button>
       <div className="quantity-container">
         <button onClick={decreaseQuantity}>-</button>
         <span>{quantity}</span>
         <button onClick={increaseQuantity}>+</button>
       </div>
+      <button id={id} onClick={(ev) => {
+        handleClick(ev, quantity)
+        setQuantity(1)
+        }} className="buy-btn">
+        Buy
+      </button>
     </div>
   )
 }
