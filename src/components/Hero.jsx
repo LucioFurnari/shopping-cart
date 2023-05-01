@@ -2,10 +2,10 @@ import heroImg from '../assets/images/home-img.jpg'
 
 export default function HeroSection() {
   return(
-    <div className="hero-section flex justify-center items-center my-8">
+    <div className="hero-section flex justify-center items-center py-8 bg-zinc-900">
       <section className='px-10 max-w-lg lg:max-w-7xl'>
-        <h2 className='text-4xl lg:text-6xl'>About us</h2>
-        <p className='text-xl text-left'>
+        <h2 className='text-4xl lg:text-6xl text-zinc-100'>About us</h2>
+        <p className='text-xl text-left text-zinc-100'>
           Duis lacinia mauris ut sem suscipit cursus. Praesent tincidunt dolor eget pretium porttitor. 
           Nam malesuada ipsum quis ligula porttitor placerat. 
           Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; 

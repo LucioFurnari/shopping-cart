@@ -4,7 +4,7 @@ export default function Nav(props) {
   const {total} = props;
   return(
     <nav className="flex justify-around items-center bg-yellow-900">
-      <h1 className="text-zinc-100 text-lg">CHOCOLAT</h1>
+      <h1 className="text-orange-200 text-lg">CHOCOLAT</h1>
       <ul className="nav-link-container flex items-center">
         <li className="ml-4 text-zinc-100"><Link className="transition ease-in-out 150ms bg  p-4 inline-block hover:bg-orange-100  hover:text-gray-800 text-lg"  to='/'>Home</Link></li>
         <li className="ml-4 text-zinc-100"><Link className="transition ease-in-out 150ms bg p-4 inline-block hover:bg-orange-100  hover:text-gray-800 text-lg" to='/shop'>Shop</Link></li>
