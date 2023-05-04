@@ -3,9 +3,11 @@ import {Root, loader as RootLoader} from './routes/root';
 import ErrorPage from './routes/error.page';
 import Cart from './components/Cart';
 import Shop from './components/Shop'
+import Item from "./components/Items";
 import Nav from './components/Nav'
+import Footer from "./components/Footer";
 import shop from './components/db';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function App() {
   const [cart,setCart] = useState([]);
@@ -59,11 +61,12 @@ function App() {
   }
 
   return (
-    <div className="App">
+    <div className="App relative">
     <Nav total={cartTotal}/>
     <Routes>
       <Route path='/' element={<Root />} />
       <Route path='/shop' element={<Shop func={buyProduct}/>} />
+      <Route path='/shop/:item' element={<Item />} loader={({params}) => console.log(params.item)} />
       <Route path='/cart' element={<Cart list={cart}
       total={totalPrice}
       handleDelete={removeProduct}
@@ -71,6 +74,7 @@ function App() {
       />}/>
       <Route path="/*" element={<ErrorPage />}/>
     </Routes>
+    <Footer />
     </div>
   )
 }
