@@ -12,7 +12,7 @@ export default function Item() {
     setProduct([dataBase.find(elem => elem.name == item)])
   },[])
   const handleFavorite = () => setFavorite(favorite => !favorite);
-
+  const handleDescription = () => setSeeDesc(seeDesc => !seeDesc);
 
   return(
     <section >
@@ -20,13 +20,13 @@ export default function Item() {
         <h3 className="text-4xl md:text-6xl mb-6">Product</h3>
         <span className="text-md md:text-xl"><Link>All</Link> / {item}</span>
       </div>
-      <div className="grid-container p-12 pt-20 justify-center grid grid-cols-1 grid-rows-2">
+      <div className="grid-container p-12 pt-20 justify-center grid grid-cols-1 grid-rows-1">
       {product.map((item,index) => {
         const { img, n, name, price, type, stock, description } = item;
         return (
           <div className="flex flex-col grow items-start justify-center bg-zinc-300" key={index}>
             <div className="relative">
-              <span className="absolute top-4 right-4 text-2xl" onClick={handleFavorite}>{favorite ? <AiFillHeart className="fill-red-900"/> : <AiOutlineHeart className="fill-red-900"/>}</span>
+              <span className="absolute top-4 right-4 text-2xl" onClick={handleFavorite}>{favorite ? <AiFillHeart className="fill-red-900 animate-pulse"/> : <AiOutlineHeart className="fill-red-900"/>}</span>
               <img  src={img}></img>
             </div>
             <h2 className="text-2xl pt-4 pb-4">{name}</h2>
@@ -40,8 +40,8 @@ export default function Item() {
             <p className="text-xl pb-4">Quantity: <span className="text-xl pl-4 text-zinc-900"></span></p>
             <button className="p-4 pl-8 pr-8 mb-4 text-xl bg-yellow-900 text-yellow-100">Add to Cart</button>
             <button className="p-4 pl-8 pr-8 mb-4 text-xl bg-yellow-900 text-yellow-100">Buy it now</button>
-            <button className="p-4 pl-8 pr-8 mb-4 text-xl bg-yellow-900 text-yellow-100">Product description</button>
-            <p>{description}</p>
+            <button className={`${seeDesc &&"bg-yellow-700"} p-4 pl-8 pr-8 mb-4 text-xl bg-yellow-900 text-yellow-100 `} onClick={handleDescription}>Product description</button>
+            <p className={`${seeDesc && " h-[200px]"} overflow-hidden transition-[height] duration-1000 ease-in-out h-0`}>{description }</p>
           </div>
         )})
       }
