@@ -17,7 +17,7 @@ export default function Nav(props) {
   },[]);
 
   return(
-    <nav className= {`${scroll ? "bg-yellow-900 fixed w-full" : "bg-transparent w-full absolute " }  transition-all duration-300 will-change-auto flex justify-around items-center `} onScroll={handleScroll}>
+    <nav className= {`${scroll ? "bg-yellow-900 fixed w-full" : "bg-transparent w-full absolute " }  transition-all duration-300 will-change-auto flex justify-around items-center z-10`} onScroll={handleScroll}>
       <h1 className="text-orange-200 text-lg">CHOCOLAT</h1>
       <ul className="nav-link-container flex items-center">
         <li className="ml-4 text-zinc-100"><Link className="transition ease-in-out 150ms bg  p-4 inline-block hover:bg-orange-100  hover:text-gray-800 text-lg rounded-md"  to='/'>Home</Link></li>
