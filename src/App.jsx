@@ -3,20 +3,27 @@ import {Root, loader as RootLoader} from './routes/root';
 import ErrorPage from './routes/error.page';
 import Cart from './components/Cart';
 import Shop from './components/Shop'
-import Item from "./components/Items";
+import Wishlist from "./components/wishlist-page/Wishlist";
 import Nav from './components/Nav'
 import Footer from "./components/Footer";
-import shop from './components/db';
-import { useEffect, useState } from "react";
+import dataBase from './components/db';
+import { Loading } from "./components/ui/Loading";
+import { useEffect, useState, Suspense, lazy, createContext, useReducer } from "react";
+const LazyProduct = lazy(() => import("./components/product-page/Product"));
+export const PurchaseContext = createContext()
+export const WishlistContext = createContext([])
+import { WishListContext, WishlistDispatchContext } from "./components/ShopContext";
 
 function App() {
   const [cart,setCart] = useState([]);
+  // const [wishlist, setWishlist] = useState(WishlistContext)
+  const [wishlist, dispatch] = useReducer(wishlistReducer, []);
   const [totalPrice, setTotalPrice] = useState(0);
   const [cartTotal, setCartTotal] = useState(0);
-  function buyProduct(ev, quantity) {
+  function handlePurchase(ev, quantity) {
     const {id} = ev.target;
-    const newItem = shop.filter((item,index) => {
-      if(index == id) {
+    const newItem = dataBase.filter((item,index) => {
+      if(item.n == id) {
         return item
       }
     })
@@ -43,6 +50,16 @@ function App() {
       setTotalPrice(totalPrice + (newItem[0].price*quantity))
     }
   }
+  function handleWishlist(ev) {
+    // console.log(wishlist)
+    // const {id} = ev.target;
+    // const newItem = dataBase.filter((item,index) => {
+    //   if(item.n == id) {
+    //     return item
+    //   }
+    // })
+    // setWishlist(newItem)
+  }
   function removeProduct(ev, quantity) {
     const { id } = ev.target;
     setCart(cart.filter((item, index) => {
@@ -65,18 +82,48 @@ function App() {
     <Nav total={cartTotal}/>
     <Routes>
       <Route path='/' element={<Root />} />
-      <Route path='/shop' element={<Shop func={buyProduct}/>} />
-      <Route path='/shop/:item' element={<Item />} loader={({params}) => console.log(params.item)} />
+      <Route path='/shop' element={<Shop />} />
+        <Route path='/shop/:item' 
+        element={
+          <Suspense fallback={<Loading />}> 
+          <PurchaseContext.Provider value={{ handlePurchase, handleWishlist, wishlist }}>
+          <WishListContext.Provider value={wishlist}>
+            <WishlistDispatchContext.Provider value={dispatch}>
+              <LazyProduct func={handlePurchase}/>
+            </WishlistDispatchContext.Provider>
+            </WishListContext.Provider>
+          </PurchaseContext.Provider>
+          </Suspense>
+        }
+        />
       <Route path='/cart' element={<Cart list={cart}
       total={totalPrice}
       handleDelete={removeProduct}
       handlePurchase={completePurchase}
       />}/>
+      <Route path='/wishlist' element={
+        <WishListContext.Provider value={wishlist}>
+            <Wishlist />
+        </WishListContext.Provider>
+      }></Route>
       <Route path="/*" element={<ErrorPage />}/>
     </Routes>
     <Footer />
-    </div>
+  </div>
   )
 }
 
 export default App
+
+
+function wishlistReducer(list, action) {
+  switch (action.type) {
+    case 'added': {
+      const newArr = dataBase.filter((item,index) => {if (item.n == action.id) return item})
+      return [...list, newArr]
+    }
+    default: {
+      throw Error('Unknown action: ' + action.type);
+    }
+  }
+}
