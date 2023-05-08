@@ -1,6 +1,6 @@
 export default function WishlistCard(props) {
   const {name, price, handlePurchase, handleCart, handleRemove} = props;
-  console.log(props)
+
   return (
     <div>
       <img></img>
