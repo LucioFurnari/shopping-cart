@@ -24,8 +24,8 @@ export default function Nav(props) {
         <li className="ml-4 text-zinc-100"><Link className="transition ease-in-out 150ms bg p-4 inline-block hover:bg-orange-100  hover:text-gray-800 text-lg  rounded-md"  to='/shop'>Shop</Link></li>
         <li className="ml-4 text-zinc-100"><Link to={'/wishlist'}><AiOutlineHeart></AiOutlineHeart></Link></li>
         <li className="ml-4 text-zinc-100">
-          <Link className="group transition ease-in-out 150ms bg p-5 inline-block hover:bg-orange-100 cart-link text-lg" to='/cart'>
-            <AiOutlineShoppingCart className="group-hover:fill-gray-800"/> {total > 0 ? <span>{total}</span> : null}
+          <Link className="group transition ease-in-out 150ms bg p-5 inline-block hover:bg-orange-100 cart-link text-lg relative" to='/cart'>
+            <AiOutlineShoppingCart className="group-hover:fill-gray-800"/> {total > 0 ? <span className="absolute top-0 right-0">{total}</span> : null}
           </Link>
         </li>
       </ul>
