@@ -10,30 +10,30 @@ import dataBase from './components/db';
 import { Loading } from "./components/ui/Loading";
 import { useEffect, useState, Suspense, lazy, createContext, useReducer } from "react";
 const LazyProduct = lazy(() => import("./components/product-page/Product"));
+// import Product from './components/product-page/Product'
 export const PurchaseContext = createContext()
-export const WishlistContext = createContext([])
-import { WishListContext, WishlistDispatchContext } from "./components/ShopContext";
+//export const WishlistContext = createContext([])
+import { WishListContext, WishlistDispatchContext, wishlistReducer } from "./components/ShopContext";
 
 function App() {
   const [cart,setCart] = useState([]);
-  // const [wishlist, setWishlist] = useState(WishlistContext)
   const [wishlist, dispatch] = useReducer(wishlistReducer, []);
   const [totalPrice, setTotalPrice] = useState(0);
   const [cartTotal, setCartTotal] = useState(0);
   function handlePurchase(ev, quantity) {
     const {id} = ev.target;
-    const newItem = dataBase.filter((item,index) => {
+    const [newItem] = dataBase.filter((item,index) => {
       if(item.n == id) {
         return item
       }
     })
-    const list = cart.filter((item) => {if(item.name == newItem[0].name)return item})
+    const list = cart.filter((item) => item.name == newItem.name)
     if (list.length != 0) {
       let arr = cart.map(item => {
-        if(item.name == newItem[0].name) {
-          setTotalPrice(totalPrice + (newItem[0].price*quantity))
+        if(item.name == newItem.name) {
+          setTotalPrice(totalPrice + (newItem.price*quantity))
           setCartTotal(cartTotal + quantity)
-          return {...item, price: item.price + (newItem[0].price*quantity), quantity: item.quantity + quantity}
+          return {...item, price: item.price + (newItem.price*quantity), quantity: item.quantity + quantity}
         } else {
           return item
         }
@@ -41,25 +41,16 @@ function App() {
       setCart(arr)
     } else {
       setCart([...cart, {
-        name: newItem[0].name,
-        price: (newItem[0].price*quantity),
-        img: newItem[0].img,
+        name: newItem.name,
+        price: (newItem.price*quantity),
+        img: newItem.img,
         quantity,
       }])
       setCartTotal(cartTotal + quantity)
-      setTotalPrice(totalPrice + (newItem[0].price*quantity))
+      setTotalPrice(totalPrice + (newItem.price*quantity))
     }
   }
-  function handleWishlist(ev) {
-    // console.log(wishlist)
-    // const {id} = ev.target;
-    // const newItem = dataBase.filter((item,index) => {
-    //   if(item.n == id) {
-    //     return item
-    //   }
-    // })
-    // setWishlist(newItem)
-  }
+
   function removeProduct(ev, quantity) {
     const { id } = ev.target;
     setCart(cart.filter((item, index) => {
@@ -86,12 +77,10 @@ function App() {
         <Route path='/shop/:item' 
         element={
           <Suspense fallback={<Loading />}> 
-          <PurchaseContext.Provider value={{ handlePurchase, handleWishlist, wishlist }}>
-          <WishListContext.Provider value={wishlist}>
+          <PurchaseContext.Provider value={ handlePurchase }>
             <WishlistDispatchContext.Provider value={dispatch}>
               <LazyProduct func={handlePurchase}/>
             </WishlistDispatchContext.Provider>
-            </WishListContext.Provider>
           </PurchaseContext.Provider>
           </Suspense>
         }
@@ -114,16 +103,3 @@ function App() {
 }
 
 export default App
-
-
-function wishlistReducer(list, action) {
-  switch (action.type) {
-    case 'added': {
-      const newArr = dataBase.filter((item,index) => {if (item.n == action.id) return item})
-      return [...list, newArr]
-    }
-    default: {
-      throw Error('Unknown action: ' + action.type);
-    }
-  }
-}
