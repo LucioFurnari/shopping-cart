@@ -7,7 +7,7 @@ export default function ItemCard ({props,handleDescription,seeDesc}) {
   const { img, n, name, price, type, stock, description } = props;
   const [favorite, setFavorite] = useState(false);
   const [quantity, setQuantity] = useState(1);
-  const {handlePurchase} = useContext(PurchaseContext)
+  const handlePurchase = useContext(PurchaseContext)
   const dispatch = useContext(WishlistDispatchContext)
   const handleFavorite = () => setFavorite(favorite => !favorite);
 

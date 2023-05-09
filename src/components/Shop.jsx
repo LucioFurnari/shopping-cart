@@ -10,7 +10,7 @@ export default function Shop(props) {
         <h2 className="text-4xl md:text-6xl mb-6">Collection</h2>
         <span className="text-md md:text-xl"><Link to={'/'}>Home</Link> / Products</span>
       </div>
-      <div className="grid-container p-12 pt-20 gap-6 justify-center grid grid-cols-[minmax(200px,_400px)] grid-rows-[460px] md:grid-col-2 md:grid-rows-[460px,_460px] lg:grid-cols-4">
+      <div className="grid-container p-12 pt-20 gap-6 justify-center items-center grid grid-cols-1 md:grid-col-2  lg:grid-cols-4">
         {dataBase.map((item,index) => {
           const { n } = item;
           return <Card {...item} key={n} id={index} handleClick={func}/>

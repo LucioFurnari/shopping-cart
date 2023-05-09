@@ -8,6 +8,7 @@ Technologies used:
 - Vite.
 - Javascript
 - Css.
+- Tailwind css.
 
 <!-- API used:  -->
 

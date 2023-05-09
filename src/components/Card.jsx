@@ -12,7 +12,7 @@ export default function Card(props) {
   }
   return (
     <div className="card flex flex-col justify-left items-star bg-zinc-300">
-      <Link className="border-solid border-2 hover:border-sky-700" to={name}><img className=" h-full" src={img} ></img></Link>
+      <Link className="border-solid border-2 hover:border-sky-700" to={name}><img className=" h-full" src={img} alt={name} ></img></Link>
       <p className="text-2xl p-2">{name}</p>
       <p className="text-xl p-2">{price}.00 $</p>
       <div className="quantity-container">
@@ -25,7 +25,7 @@ export default function Card(props) {
         setQuantity(1)
         }} className="buy-btn">
         Buy
-      </button> */}
+      </button>  */}
       
     </div>
   )

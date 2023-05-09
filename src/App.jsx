@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import {Root, loader as RootLoader} from './routes/root';
 import ErrorPage from './routes/error.page';
-import Cart from './components/Cart';
+import Cart from './components/cart-page/Cart';
 import Shop from './components/Shop'
 import Wishlist from "./components/wishlist-page/Wishlist";
 import Nav from './components/Nav'
@@ -13,11 +13,21 @@ const LazyProduct = lazy(() => import("./components/product-page/Product"));
 // import Product from './components/product-page/Product'
 export const PurchaseContext = createContext()
 //export const WishlistContext = createContext([])
-import { WishListContext, WishlistDispatchContext, wishlistReducer } from "./components/ShopContext";
+// Import context //
+import {
+  WishListContext,
+  WishlistDispatchContext,
+  wishlistReducer,
+  cartContext,
+  cartDispatchContext,
+  shopSectionReducer
+} from "./components/ShopContext";
 
 function App() {
   const [cart,setCart] = useState([]);
   const [wishlist, dispatch] = useReducer(wishlistReducer, []);
+  // Cart reducer //
+  const [cartList, cartDispatch] = useReducer(shopSectionReducer, []);
   const [totalPrice, setTotalPrice] = useState(0);
   const [cartTotal, setCartTotal] = useState(0);
   function handlePurchase(ev, quantity) {
