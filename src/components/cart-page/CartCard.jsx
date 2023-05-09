@@ -1,12 +1,12 @@
 export default function CartCard(props) {
   const {name, price, quantity, img, index} = props;
   return (
-    <div className="card" key={index}>
+    <div className=" bg-zinc-300" key={index}>
       <img src={img}></img>
-      <p>{name}</p>
-      <p>Price: {price} $</p>
-      <p>{quantity > 1 ? 'x' + quantity : null}</p>
-      <button id={index} onClick={(ev) => handleDelete(ev, quantity)} className='cart-delete-btn'>X</button>
+      <p className="text-3xl pt-4">{name}</p>
+      <p className="text-2xl pt-4">Price: {price} $</p>
+      <p className="text-2xl pt-4">{quantity > 1 ? 'Amount: x' + quantity : null}</p>
+      <button className="p-4 pl-8 pr-8 mb-4 text-xl bg-yellow-900 text-yellow-100" id={index} onClick={(ev) => handleDelete(ev, quantity)} >Remove item</button>
     </div>
   )
 }

@@ -1,5 +1,6 @@
 import emptyCart from '../../assets/images/empty-cart.svg'
 import CartCard from './CartCard';
+import Header from '../ui/Header';
 import { Link } from 'react-router-dom';
 import { cartContext } from '../ShopContext';
 import { useContext } from 'react';
@@ -9,13 +10,14 @@ export default function Cart(props) {
   const {cart} = useContext(cartContext)
 
   return(
-    <div className='cart-section flex flex-col items-center justify-center bg-zinc-900 h-screen'>
+    <div className='bg-zinc-100 min-h-screen'>
+    <Header section='Cart' link={'/shop'} routeName={'All'} item={''}/>
       {(cart.length > 0)
       ? 
-      <div className="grid-container">
+      <div className="grid grid-cols-1 gap-6 p-12 pt-20 justify-center ">
       {cart.map((item, index) => {
         return (
-          <CartCard {...item} index={index}/>
+          <CartCard {...item} index={index} key={index}/>
         )
       })}
       </div>
@@ -29,7 +31,7 @@ export default function Cart(props) {
       {
         (cart.length > 0)
         &&
-        <div className='cart-purchase-section'>
+        <div className=' bg-zinc-100'>
           <p>Total price: {total}</p>
           <button onClick={handlePurchase}>Purchase</button>
         </div>
