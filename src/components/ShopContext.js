@@ -42,24 +42,26 @@ export function wishlistReducer(list, action) {
 // Shop section functions //
 
 export function shopSectionReducer(item, action) {
-  const {cart} = item;
+  const {cart, totalPrice, cartAmount} = item;
   switch (action.type) {
     case 'ADD-TO-CART': {
       // Search item in the data base //
       const [newItem] = dataBase.filter((item) => item.n == action.id);
-
+      console.log(cartAmount)
       const list = cart.filter((item) => item.name == newItem.name)
       if (list.length != 0) {
         const newArr = cart.map(item => {
         if(item.name == newItem.name) {
-          return {...item, newItem}
+          return {...item, price: item.price + (newItem.price*action.quantity), quantity: item.quantity + action.quantity}
         } else {
           return item
         }
       })
 
       return {
-        cart: newArr
+        cart: newArr,
+        totalPrice: totalPrice + newItem.price * action.quantity,
+        cartAmount: cartAmount + action.quantity,
       };
       } else {
         return {
@@ -67,7 +69,10 @@ export function shopSectionReducer(item, action) {
             name: newItem.name,
             price: newItem.price,
             img: newItem.img,
-            }]
+            quantity: action.quantity,
+            }],
+          cartAmount: (cartAmount + action.quantity),
+          totalPrice: (totalPrice + (newItem.price*action.quantity))
         }
       }
       }
