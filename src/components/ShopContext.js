@@ -45,29 +45,30 @@ export function shopSectionReducer(item, action) {
   const {cart} = item;
   switch (action.type) {
     case 'ADD-TO-CART': {
-      const {id} = ev.target;
-      const [newItem] = dataBase.filter((item,index) => {
-      if(item.n == id) {
-        return item
-      }
-      })
+      // Search item in the data base //
+      const [newItem] = dataBase.filter((item) => item.n == action.id);
+
       const list = cart.filter((item) => item.name == newItem.name)
       if (list.length != 0) {
-      const newArr = cart.map(item => {
-      if(item.name == newItem.name) {
-        return {...item, newItem}
-      } else {
-        return item
-      }
+        const newArr = cart.map(item => {
+        if(item.name == newItem.name) {
+          return {...item, newItem}
+        } else {
+          return item
+        }
       })
-      return newArr;
+
+      return {
+        cart: newArr
+      };
       } else {
-      setCart([...cart, {
-        name: newItem.name,
-        price: (newItem.price*quantity),
-        img: newItem.img,
-        quantity,
-        }])
+        return {
+          cart: [...cart, {
+            name: newItem.name,
+            price: newItem.price,
+            img: newItem.img,
+            }]
+        }
       }
       }
   }
