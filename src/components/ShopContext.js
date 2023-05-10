@@ -92,11 +92,15 @@ export function shopSectionReducer(item, action) {
       return {
         cart: cart.map((item) => {
           if (item.n === action.id) {
-            return {...item, quantity: (item.quantity - 1)}
+            if(item.quantity > 0) {
+              return {...item, quantity: (item.quantity - 1)}
+            } else {
+              return item
+            }
           }
         }),
-        cartAmount: (cartAmount - 1),
-        totalPrice: (totalPrice - item.price)
+        cartAmount: (cartAmount > 0 ? cartAmount - 1 : 0),
+        totalPrice: (totalPrice > 0 ? totalPrice - item.price : 0)
       }
     }
     case 'INCREASE-AMOUNT': {
