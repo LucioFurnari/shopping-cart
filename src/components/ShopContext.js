@@ -53,7 +53,7 @@ export function shopSectionReducer(item, action) {
       if (list.length != 0) {
         const newArr = cart.map(item => {
         if(item.name === newItem.name) {
-          return {...item, price: item.price + (newItem.price*action.quantity), quantity: item.quantity + action.quantity}
+          return {...item, quantity: item.quantity + action.quantity}
         } else {
           return item
         }
@@ -87,5 +87,31 @@ export function shopSectionReducer(item, action) {
         totalPrice: (totalPrice - item.price)
       }
     }
+    case 'DECREASE-AMOUNT': {
+      const [item] = cart.filter((item) => item.n == action.id);
+      return {
+        cart: cart.map((item) => {
+          if (item.n === action.id) {
+            return {...item, quantity: (item.quantity - 1)}
+          }
+        }),
+        cartAmount: (cartAmount - 1),
+        totalPrice: (totalPrice - item.price)
+      }
+    }
+    case 'INCREASE-AMOUNT': {
+      const [item] = cart.filter((item) => item.n == action.id);
+      return {
+        cart: cart.map((item) => {
+          if (item.n == action.id) {
+            return {...item, quantity: (item.quantity + 1)}
+          }
+        }),
+        cartAmount: (cartAmount + 1),
+        totalPrice: (totalPrice + item.price)
+      }
+    }
   }
 }
+
+// price: item.price + (newItem.price*action.quantity)
