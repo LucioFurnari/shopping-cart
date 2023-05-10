@@ -80,10 +80,10 @@ export function shopSectionReducer(item, action) {
       }
     case 'REMOVE-FROM-CART': {
       const [item] = cart.filter((item) => item.n == action.id);
-      console.log(cart.filter((item) => item.n !== action.id))
+
       return {
         cart: cart.filter((item) => item.n !== action.id),
-        cartAmount: (cartAmount - action.quantity),
+        cartAmount: (cartAmount - item.quantity),
         totalPrice: (totalPrice - item.price)
       }
     }
