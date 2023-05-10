@@ -30,8 +30,8 @@ export default function CartCard(props) {
       <img src={img}></img>
       <p className="text-3xl pt-4">{name}</p>
       <p className="text-2xl pt-4">Price: {price}.00 $</p>
-      <p className="text-2xl pt-4">{quantity > 1 ? 'Amount: x' + quantity : null}</p>
-      <div id={id}>
+      {/* <p className="text-2xl pt-4">{quantity > 1 ? 'Amount: x' + quantity : null}</p> */}
+      <div className="pt-4" id={id}>
         <button className="pl-2 pr-2 bg-zinc-400 text-4xl text-center" onClick={handleDecreaseAmount}>-</button>
           <span className="p-2 text-2xl">{quantity}</span>
         <button className="pl-2 pr-2 bg-zinc-400 text-4xl" onClick={handleIncreaseAmount}>+</button>
