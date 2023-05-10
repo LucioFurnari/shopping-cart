@@ -1,8 +1,11 @@
 import { Link } from "react-router-dom"
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AiOutlineShoppingCart, AiOutlineHeart  } from 'react-icons/ai'
+import { cartContext } from "./ShopContext";
+
 export default function Nav(props) {
-  const {total} = props;
+  const {cartAmount} = useContext(cartContext);
+
   const [scroll, setScroll] = useState(false);
 
   const handleScroll = (ev) => {
@@ -25,7 +28,7 @@ export default function Nav(props) {
         <li className="ml-4 text-zinc-100"><Link to={'/wishlist'}><AiOutlineHeart></AiOutlineHeart></Link></li>
         <li className="ml-4 text-zinc-100">
           <Link className="group transition ease-in-out 150ms bg p-5 inline-block hover:bg-orange-100 cart-link text-lg relative" to='/cart'>
-            <AiOutlineShoppingCart className="group-hover:fill-gray-800"/> {total > 0 ? <span className="absolute top-0 right-0">{total}</span> : null}
+            <AiOutlineShoppingCart className="group-hover:fill-gray-800"/> {cartAmount > 0 ? <span className="absolute top-0 right-0">{cartAmount}</span> : null}
           </Link>
         </li>
       </ul>
