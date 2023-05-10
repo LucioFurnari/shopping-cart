@@ -1,5 +1,6 @@
 import { createContext } from "react";
 import dataBase from "./db";
+import { stringify } from "postcss";
 
 // Wishlist context //
 export const WishListContext = createContext(null);
@@ -47,11 +48,11 @@ export function shopSectionReducer(item, action) {
     case 'ADD-TO-CART': {
       // Search item in the data base //
       const [newItem] = dataBase.filter((item) => item.n == action.id);
-      console.log(cartAmount)
-      const list = cart.filter((item) => item.name == newItem.name)
+
+      const list = cart.filter((item) => item.name === newItem.name)
       if (list.length != 0) {
         const newArr = cart.map(item => {
-        if(item.name == newItem.name) {
+        if(item.name === newItem.name) {
           return {...item, price: item.price + (newItem.price*action.quantity), quantity: item.quantity + action.quantity}
         } else {
           return item
@@ -70,11 +71,21 @@ export function shopSectionReducer(item, action) {
             price: newItem.price,
             img: newItem.img,
             quantity: action.quantity,
+            n: newItem.n.toString()
             }],
           cartAmount: (cartAmount + action.quantity),
           totalPrice: (totalPrice + (newItem.price*action.quantity))
         }
       }
       }
+    case 'REMOVE-FROM-CART': {
+      const [item] = cart.filter((item) => item.n == action.id);
+      console.log(cart.filter((item) => item.n !== action.id))
+      return {
+        cart: cart.filter((item) => item.n !== action.id),
+        cartAmount: (cartAmount - action.quantity),
+        totalPrice: (totalPrice - item.price)
+      }
+    }
   }
 }
