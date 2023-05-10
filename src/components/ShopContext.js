@@ -80,11 +80,11 @@ export function shopSectionReducer(item, action) {
       }
     case 'REMOVE-FROM-CART': {
       const [item] = cart.filter((item) => item.n == action.id);
-
+      // (cart.length > 1 ? totalPrice - item.price : 0)
       return {
         cart: cart.filter((item) => item.n !== action.id),
         cartAmount: (cartAmount - item.quantity),
-        totalPrice: (totalPrice - item.price)
+        totalPrice: (cart.length > 1 ? (totalPrice - (item.price * item.quantity)) : 0)
       }
     }
     case 'DECREASE-AMOUNT': {
@@ -97,6 +97,8 @@ export function shopSectionReducer(item, action) {
             } else {
               return item
             }
+          } else {
+            return item
           }
         }),
         cartAmount: (cartAmount > 0 ? cartAmount - 1 : 0),
@@ -109,6 +111,8 @@ export function shopSectionReducer(item, action) {
         cart: cart.map((item) => {
           if (item.n == action.id) {
             return {...item, quantity: (item.quantity + 1)}
+          } else {
+            return item
           }
         }),
         cartAmount: (cartAmount + 1),
@@ -117,5 +121,3 @@ export function shopSectionReducer(item, action) {
     }
   }
 }
-
-// price: item.price + (newItem.price*action.quantity)
