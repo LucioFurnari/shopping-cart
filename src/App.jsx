@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import {Root, loader as RootLoader} from './routes/root';
 import ErrorPage from './routes/error.page';
-import Cart from './components/cart-page/Cart';
+import Cart from './components/cart-page/CartSection';
 import Shop from './components/Shop'
 import Wishlist from "./components/wishlist-page/Wishlist";
 import Nav from './components/Nav'
@@ -48,26 +48,21 @@ function App() {
   return (
     <div className="App relative">
     <cartContext.Provider value={ cartList }>
-      <Nav />
-    </cartContext.Provider>
+    <cartDispatchContext.Provider value={ cartDispatch }>
+    <WishlistDispatchContext.Provider value={dispatch}>
+    <Nav />
     <Routes>
       <Route path='/' element={<Root />} />
       <Route path='/shop' element={<Shop />} />
         <Route path='/shop/:item' 
         element={
-          <Suspense fallback={<Loading />}> 
-          <cartDispatchContext.Provider value={ cartDispatch }>
-            <WishlistDispatchContext.Provider value={dispatch}>
+          <Suspense fallback={<Loading />}>    
               <LazyProduct />
-            </WishlistDispatchContext.Provider>
-          </cartDispatchContext.Provider>
           </Suspense>
         }
         />
       <Route path='/cart' element={
-        <cartContext.Provider value={ cartList }>
         <Cart handleDelete={removeProduct} handlePurchase={completePurchase}/>
-        </cartContext.Provider>
       }/>
       <Route path='/wishlist' element={
         <WishListContext.Provider value={wishlist}>
@@ -77,6 +72,9 @@ function App() {
       <Route path="/*" element={<ErrorPage />}/>
     </Routes>
     <Footer />
+    </WishlistDispatchContext.Provider>
+    </cartDispatchContext.Provider>
+    </cartContext.Provider>
   </div>
   )
 }
