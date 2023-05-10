@@ -1,14 +1,13 @@
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai"
 import { useContext, useState } from "react";
-import {PurchaseContext} from  '../../App'
-import { WishlistDispatchContext } from "../ShopContext";
+import { WishlistDispatchContext, cartDispatchContext } from "../ShopContext";
 
 export default function ItemCard ({props,handleDescription,seeDesc}) {
   const { img, n, name, price, type, stock, description } = props;
   const [favorite, setFavorite] = useState(false);
   const [quantity, setQuantity] = useState(1);
-  const handlePurchase = useContext(PurchaseContext)
   const dispatch = useContext(WishlistDispatchContext)
+  const cartDispatch = useContext(cartDispatchContext)
   const handleFavorite = () => setFavorite(favorite => !favorite);
 
   function handleWishlist(ev) {
@@ -25,6 +24,13 @@ export default function ItemCard ({props,handleDescription,seeDesc}) {
     dispatch({
       type: 'remove',
       id: ev.target.id,
+    })
+  }
+  function handleAddCart(ev, quantity) {
+    cartDispatch({
+      type: 'ADD-TO-CART',
+      id: ev.target.id,
+      quantity,
     })
   }
 
@@ -46,7 +52,8 @@ export default function ItemCard ({props,handleDescription,seeDesc}) {
       <p className="text-xl pb-4">Quantity: <span className="text-xl pl-4 text-zinc-900"></span></p>
       <button className="p-4 pl-8 pr-8 mb-4 text-xl bg-yellow-900 text-yellow-100" id={n}
         onClick={(ev) => {
-          handlePurchase(ev,quantity)
+          handleAddCart(ev, quantity)
+          // handlePurchase(ev,quantity)
           setQuantity(1)
           }}>
         Add to Cart
