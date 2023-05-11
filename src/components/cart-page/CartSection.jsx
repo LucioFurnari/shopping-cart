@@ -17,7 +17,7 @@ export default function Cart(props) {
       <div className="grid grid-cols-1 gap-6 p-12 pt-20 justify-center ">
       {cart.map((item, index) => {
         return (
-          <CartCard {...item} id={item.n} key={index}/>
+          <CartCard {...item} key={index}/>
         )
       })}
       </div>

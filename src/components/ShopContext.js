@@ -14,12 +14,13 @@ export const cartDispatchContext = createContext(null);
 export function wishlistReducer(list, action) {
   switch (action.type) {
     case 'added': {
-      let [newItem] = dataBase.filter((item,index) => item.n == action.id)
+      let [newItem] = dataBase.filter((item,index) => item.id == action.id)
       // Detect if the list is empty or have the same item selected //
-      const copyArr = list.filter((item) => (item.n == newItem.n))
-      if (copyArr.length != 0) {
+
+      const hasItem = list.some((item) => (item.id == newItem.id))
+      if (hasItem) {
         const newList = list.map((item,index) => {
-        if (item.n == newItem.n) {
+        if (item.id == newItem.id) {
           return {...item, newItem}
         } else {
           return item
@@ -32,7 +33,7 @@ export function wishlistReducer(list, action) {
       }
     }
     case 'remove': {
-      return list.filter((item,index) => item.n != action.id)
+      return list.filter((item,index) => item.id != action.id)
     }
     default: {
       throw Error('Unknown action: ' + action.type);
@@ -40,17 +41,17 @@ export function wishlistReducer(list, action) {
   }
 }
 
-// Shop section functions //
+// Cart section functions //
 
 export function shopSectionReducer(item, action) {
   const {cart, totalPrice, cartAmount} = item;
   switch (action.type) {
     case 'ADD-TO-CART': {
       // Search item in the data base //
-      const [newItem] = dataBase.filter((item) => item.n == action.id);
+      const [newItem] = dataBase.filter((item) => item.id == action.id);
 
-      const list = cart.filter((item) => item.name === newItem.name)
-      if (list.length != 0) {
+      const hasItem = cart.some((item) => item.name === newItem.name)
+      if (hasItem) {
         const newArr = cart.map(item => {
         if(item.name === newItem.name) {
           return {...item, quantity: item.quantity + action.quantity}
@@ -71,7 +72,7 @@ export function shopSectionReducer(item, action) {
             price: newItem.price,
             img: newItem.img,
             quantity: action.quantity,
-            n: newItem.n.toString()
+            id: newItem.id.toString()
             }],
           cartAmount: (cartAmount + action.quantity),
           totalPrice: (totalPrice + (newItem.price*action.quantity))
@@ -79,19 +80,18 @@ export function shopSectionReducer(item, action) {
       }
       }
     case 'REMOVE-FROM-CART': {
-      const [item] = cart.filter((item) => item.n == action.id);
-      // (cart.length > 1 ? totalPrice - item.price : 0)
+      const [item] = cart.filter((item) => item.id == action.id);
       return {
-        cart: cart.filter((item) => item.n !== action.id),
+        cart: cart.filter((item) => item.id !== action.id),
         cartAmount: (cartAmount - item.quantity),
         totalPrice: (cart.length > 1 ? (totalPrice - (item.price * item.quantity)) : 0)
       }
     }
     case 'DECREASE-AMOUNT': {
-      const [item] = cart.filter((item) => item.n == action.id);
+      const [item] = cart.filter((item) => item.id == action.id);
       return {
         cart: cart.map((item) => {
-          if (item.n === action.id) {
+          if (item.id === action.id) {
             if(item.quantity > 0) {
               return {...item, quantity: (item.quantity - 1)}
             } else {
@@ -102,14 +102,14 @@ export function shopSectionReducer(item, action) {
           }
         }),
         cartAmount: (cartAmount > 0 ? cartAmount - 1 : 0),
-        totalPrice: (totalPrice > 0 ? totalPrice - item.price : 0)
+        totalPrice: (totalPrice > 0 ? (totalPrice - item.price) : 0)
       }
     }
     case 'INCREASE-AMOUNT': {
-      const [item] = cart.filter((item) => item.n == action.id);
+      const [item] = cart.filter((item) => item.id == action.id);
       return {
         cart: cart.map((item) => {
-          if (item.n == action.id) {
+          if (item.id == action.id) {
             return {...item, quantity: (item.quantity + 1)}
           } else {
             return item

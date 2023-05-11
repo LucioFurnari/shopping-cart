@@ -8,20 +8,20 @@ export default function CartCard(props) {
   function handleRemoveItem(ev) {
     dispatch({
       type: 'REMOVE-FROM-CART',
-      id: ev.target.id
+      id: id
     });
   };
 
   function handleDecreaseAmount(ev) {
     dispatch({
       type: 'DECREASE-AMOUNT',
-      id: ev.target.parentNode.id
+      id: id
     })
   }
   function handleIncreaseAmount(ev) {
     dispatch({
       type: 'INCREASE-AMOUNT',
-      id: ev.target.parentNode.id
+      id: id
     })
   }
 
@@ -31,7 +31,7 @@ export default function CartCard(props) {
       <p className="text-3xl pt-4">{name}</p>
       <p className="text-2xl pt-4">Price: {price}.00 $</p>
       {/* <p className="text-2xl pt-4">{quantity > 1 ? 'Amount: x' + quantity : null}</p> */}
-      <div className="pt-4" id={id}>
+      <div className="pt-4">
         <button className="pl-2 pr-2 bg-zinc-400 text-4xl text-center" onClick={handleDecreaseAmount}>-</button>
           <span className="p-2 text-2xl">{quantity}</span>
         <button className="pl-2 pr-2 bg-zinc-400 text-4xl" onClick={handleIncreaseAmount}>+</button>

@@ -16,10 +16,10 @@ export default function Product({func}) {
   return(
     <section >
       <Header section='Product' link={'/shop'} routeName={'All'} item={item}/>
-      <div className="grid-container p-12 pt-20 justify-center grid grid-cols-1 grid-rows-1">
+      <div className="p-12 pt-20 justify-center grid grid-cols-1 grid-rows-1">
       {
         product.map((item,index) => {
-        const { img, n, name, price, type, stock, description } = item;
+        const { img, id, name, price, type, stock, description } = item;
         return (
           <ItemCard 
           props={item} 
