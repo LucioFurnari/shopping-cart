@@ -1,6 +1,7 @@
 // Import the functions you need from the SDKs you need
 
 import { initializeApp } from "firebase/app";
+import { getFirestore } from "firebase/firestore";
 
 // TODO: Add SDKs for Firebase products that you want to use
 
@@ -8,24 +9,27 @@ import { initializeApp } from "firebase/app";
 
 
 // Your web app's Firebase configuration
+const {
+  VITE_API_KEY,
+  VITE_AUTH_DOMAIN,
+  VITE_PROJECT_ID,
+  VITE_STORAGE_BUCKET,
+  VITE_MESSAGING_SENDER_ID,
+  VITE_APP_ID
+} = import.meta.env;
 
 const firebaseConfig = {
-
-  apiKey: "AIzaSyDpmWBJjZ34fbOl9nWQ1oGJVgj_OffoXdI",
-
-  authDomain: "shopping-cart-94341.firebaseapp.com",
-
-  projectId: "shopping-cart-94341",
-
-  storageBucket: "shopping-cart-94341.appspot.com",
-
-  messagingSenderId: "302435008674",
-
-  appId: "1:302435008674:web:4a1a5dcf9c7561171d17fb"
-
+  apiKey: VITE_API_KEY,
+  authDomain: VITE_AUTH_DOMAIN,
+  projectId: VITE_PROJECT_ID,
+  storageBucket: VITE_STORAGE_BUCKET,
+  messagingSenderId: VITE_MESSAGING_SENDER_ID,
+  appId: VITE_APP_ID
 };
 
 
 // Initialize Firebase
 
 const app = initializeApp(firebaseConfig);
+
+export const db = getFirestore(app);
