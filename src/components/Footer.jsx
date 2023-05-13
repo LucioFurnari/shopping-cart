@@ -5,9 +5,9 @@ export default function Footer() {
     <footer className='flex items-center justify-around py-4 bg-yellow-900'>
       <p className='text-zinc-100'>© 2023 Chocolat</p>
       <ul className='flex '>
-        <li className=' ml-6'><a><AiOutlineInstagram className=' fill-zinc-100'/></a></li>
-        <li className=' ml-6'><a><CiTwitter className='fill-zinc-100'/></a></li>
-        <li className=' ml-6'><a><AiOutlineFacebook className='fill-zinc-100'/></a></li>
+        <li className=' ml-6'><a alt='Instagram'><AiOutlineInstagram alt='Instagram' className=' fill-zinc-100'/></a></li>
+        <li className=' ml-6'><a alt='Twitter'><CiTwitter alt='Twitter' className='fill-zinc-100'/></a></li>
+        <li className=' ml-6'><a alt='Facebook'><AiOutlineFacebook alt='Facebook' className='fill-zinc-100'/></a></li>
       </ul>
     </footer>
   )
