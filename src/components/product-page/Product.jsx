@@ -1,10 +1,11 @@
 import ItemCard from "./ItemCard";
 import Header from "../ui/Header";
-import dataBase from "../db";
+
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 
-export default function Product({func}) {
+export default function Product(props) {
+  const {dataBase} = props // Shop Data from the App state //
   const [seeDesc, setSeeDesc] = useState(false);
   const [product, setProduct] = useState([]);
   const handleDescription = () => setSeeDesc(seeDesc => !seeDesc);
@@ -26,7 +27,6 @@ export default function Product({func}) {
           key={index}
           handleDescription={handleDescription}
           seeDesc={seeDesc}
-          handlePurchase={func}
           />
         )})
       }
