@@ -1,16 +1,15 @@
 import { createContext } from "react";
 import dataBase from "./db";
-import { stringify } from "postcss";
 
 // Wishlist context //
 export const WishListContext = createContext(null);
 export const WishlistDispatchContext = createContext(null);
 
-// Cart/Shop context //
+// Cart context //
 export const cartContext = createContext(null);
 export const cartDispatchContext = createContext(null);
 
-// Wishlist functions //
+// Wishlist Reducer //
 export function wishlistReducer(list, action) {
   switch (action.type) {
     case 'added': {
@@ -41,7 +40,7 @@ export function wishlistReducer(list, action) {
   }
 }
 
-// Cart section functions //
+// Cart Reducer //
 
 export function shopSectionReducer(item, action) {
   const {cart, totalPrice, cartAmount} = item;
