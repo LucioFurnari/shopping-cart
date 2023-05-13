@@ -17,7 +17,9 @@ export default function Wishlist () {
         })}
         </div>
         :
-        <h3>The wishlist is empty</h3>
+        <div className=" flex justify-center items-center h-80">
+          <h3 className=" text-4xl">The wishlist is empty</h3>
+        </div>
       }
     </section>
   )
