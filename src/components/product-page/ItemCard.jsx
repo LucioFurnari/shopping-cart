@@ -2,13 +2,15 @@ import { AiOutlineHeart, AiFillHeart } from "react-icons/ai"
 import { useContext, useState } from "react";
 import { WishlistDispatchContext, cartDispatchContext } from "../ShopContext";
 
-export default function ItemCard ({props,handleDescription,seeDesc}) {
-  const { img, id, name, price, type, stock, description } = props;
+export default function ItemCard (props) {
+  const { img, id, name, price, type, stock, description} = props;
   const [favorite, setFavorite] = useState(false);
   const [quantity, setQuantity] = useState(1);
+  const [seeDesc, setSeeDesc] = useState(false);
   const dispatch = useContext(WishlistDispatchContext)
   const cartDispatch = useContext(cartDispatchContext)
   const handleFavorite = () => setFavorite(favorite => !favorite);
+  const handleDescription = () => setSeeDesc(seeDesc => !seeDesc);
 
   function handleWishlist(ev) {
     ev.stopPropagation()
