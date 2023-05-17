@@ -27,16 +27,18 @@ export default function Nav(props) {
         <CustomLink to='/' linkName='Home'/>
         <CustomLink to='/shop' linkName='Shop' />
         <CustomLink to='/wishlist' linkName={<AiOutlineHeart />} />
+        <li className="ml-4">
         <NavLink 
             to='/cart'
             className={({isActive}) => {
-            return isActive ? "relative text-lg bg-orange-100 text-gray-800 p-4 inline-block rounded-md" 
+            return isActive ? "relative text-xl bg-orange-100 text-gray-800 p-4 inline-block rounded-md" 
             : 
-            'relative transition ease-in-out 150ms text-lg text-orange-100 rounded-md p-4 inline-block hover:bg-orange-100  hover:text-gray-800'
+            'relative transition ease-in-out 150ms text-xl text-orange-100 rounded-md p-4 inline-block hover:bg-orange-100  hover:text-gray-800'
             }}
         >
             <AiOutlineShoppingCart className="group-hover:fill-gray-800"/> {cartAmount > 0 ? <span className="absolute top-0 right-0">{cartAmount}</span> : null}
         </NavLink>
+        </li>
       </ul>
     </nav>
   )
