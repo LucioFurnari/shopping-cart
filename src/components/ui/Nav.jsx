@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom"
 import CustomLink from "./CustomLink";
 import { useContext, useEffect, useState } from "react";
-import { AiOutlineShoppingCart, AiOutlineHeart  } from 'react-icons/ai'
+import { AiOutlineShoppingCart, AiOutlineHeart, AiOutlineMenu } from 'react-icons/ai'
 import { cartContext } from "../ShopContext";
 
 export default function Nav(props) {
@@ -9,9 +9,21 @@ export default function Nav(props) {
 
   const [scroll, setScroll] = useState(false);
 
+  const [menu, setMenu] = useState(false);
+
+  const handleMenu = () => setMenu(!menu);
+
   const handleScroll = (ev) => {
     setScroll(window.pageYOffset > 200 ? true : false)
   };
+
+  useEffect(() => {
+    window.addEventListener('resize',() => {
+      if(window.innerWidth > 768) {
+        setMenu(false)
+      }
+    })
+  }, [])
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
@@ -21,13 +33,14 @@ export default function Nav(props) {
   },[]);
 
   return(
-    <nav className= {`${scroll ? "bg-yellow-900 fixed w-full" : "bg-transparent w-full absolute " }  transition-all duration-300 will-change-auto flex justify-around items-center z-10`} onScroll={handleScroll}>
-      <h1 className="text-orange-200 text-lg">CHOCOLAT</h1>
-      <ul className="nav-link-container flex items-center">
+    <>
+    <nav className= {`${scroll ? "bg-yellow-900 fixed w-full" : "bg-transparent w-full absolute " } transition-all duration-300 will-change-auto flex justify-around items-center z-10`} onScroll={handleScroll}>
+      <h1 className="text-orange-200 text-lg p-6">CHOCOLAT</h1>
+      <ul className={`${menu ? 'fixed top-0 right-0 h-screen pt-6 px-8' : '-right-full hidden'}  transition-all duration-300  md:flex items-center bg-yellow-900 md:bg-inherit`}>
         <CustomLink to='/' linkName='Home'/>
         <CustomLink to='/shop' linkName='Shop' />
         <CustomLink to='/wishlist' linkName={<AiOutlineHeart />} />
-        <li className="ml-4">
+        <li className="md:ml-4 text-center">
         <NavLink 
             to='/cart'
             className={({isActive}) => {
@@ -40,6 +53,11 @@ export default function Nav(props) {
         </NavLink>
         </li>
       </ul>
+      <button className="md:hidden" onClick={handleMenu}>
+        {!menu && <AiOutlineMenu className=" fill-orange-100 w-12 h-auto"/>}
+      </button>
     </nav>
+    {menu && <div onClick={handleMenu} className=" backdrop-blur-sm bg-white/30 fixed top-0 right-0  w-screen h-screen "></div>}
+    </>
   )
 }
