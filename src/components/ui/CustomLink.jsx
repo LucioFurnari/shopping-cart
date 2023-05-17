@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom"
 export default function CustomLink(props) {
   const { to, linkName} = props;
   return (
-    <li className="ml-4">
+    <li className="md:ml-4 md:mb-0 mb-6 text-center">
       <NavLink 
         to={to}
         className={({isActive}) => {
