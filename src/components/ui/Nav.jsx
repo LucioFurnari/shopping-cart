@@ -13,28 +13,27 @@ export default function Nav(props) {
 
   const handleMenu = () => setMenu(!menu);
 
-  const handleScroll = (ev) => {
-    setScroll(window.pageYOffset > 200 ? true : false)
-  };
-
   useEffect(() => {
-    window.addEventListener('resize',() => {
+    const handleScroll = (ev) => {
+      setScroll(window.pageYOffset > 200 ? true : false)
+    };
+  
+    const handleResize = () => {
       if(window.innerWidth > 768) {
         setMenu(false)
       }
-    })
-  }, [])
-
-  useEffect(() => {
+    }
     window.addEventListener("scroll", handleScroll);
+    window.addEventListener('resize',handleResize)
   return () => {
     window.removeEventListener("scroll", handleScroll);
+    window.removeEventListener('resize',handleResize)
   };
   },[]);
 
   return(
     <>
-    <nav className= {`${scroll ? "bg-yellow-900 fixed w-full" : "bg-transparent w-full absolute " } transition-all duration-300 will-change-auto flex justify-around items-center z-10`} onScroll={handleScroll}>
+    <nav className= {`${scroll ? "bg-yellow-900 fixed w-full" : "bg-transparent w-full absolute " } transition-all duration-300 will-change-auto flex justify-around items-center z-10`}>
       <h1 className="text-orange-200 text-lg p-6">CHOCOLAT</h1>
       <ul className={`${menu ? 'fixed top-0 right-0 h-screen pt-6 px-8' : '-right-full hidden'}  transition-all duration-300  md:flex items-center bg-yellow-900 md:bg-inherit`}>
         <CustomLink to='/' linkName='Home'/>
