@@ -12,8 +12,8 @@ export function Home() {
   return(
     <>
     <div className="home flex flex-col justify-center items-center bg-[url('./assets/images/background.jpg')] bg-center bg-cover bg-no-repeat h-screen">
-      <h2 className="text-4xl md:text-6xl xl:text-8xl text-white">Taste good, does good</h2>
-      <Link className="text-xl font-semibold mt-6 p-4 rounded-md bg-yellow-800 active:bg-yellow-950 hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-slate-100" to='/shop'>To the Shop</Link>
+      <h2 className="text-4xl md:text-6xl xl:text-8xl max-w-xl text-center text-white">Taste good, does good</h2>
+      <Link className="text-xl font-semibold mt-10 p-4 rounded-md bg-yellow-800 active:bg-yellow-950 hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-slate-100" to='/shop'>To the Shop</Link>
     </div>
       <Article />
       <Gallery />
