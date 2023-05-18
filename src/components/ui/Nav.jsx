@@ -35,7 +35,7 @@ export default function Nav(props) {
     <>
     <nav className= {`${scroll ? "bg-yellow-900 fixed w-full" : "bg-transparent w-full absolute " } transition-all duration-300 will-change-auto flex justify-around items-center z-10`}>
       <h1 className="text-orange-200 text-lg p-6">CHOCOLAT</h1>
-      <ul className={`${menu ? 'fixed top-0 right-0 h-screen pt-6 px-8' : '-right-full hidden'}  transition-all duration-300  md:flex items-center bg-yellow-900 md:bg-inherit`}>
+      <ul className={`${menu && 'right-0'} fixed top-0 -right-full h-screen transition-[right] duration-300 pt-6 px-8 md:p-0 md:h-auto md:static md:flex md:items-center bg-yellow-900 md:bg-transparent`}>
         <CustomLink to='/' linkName='Home'/>
         <CustomLink to='/shop' linkName='Shop' />
         <CustomLink to='/wishlist' linkName={<AiOutlineHeart />} />
