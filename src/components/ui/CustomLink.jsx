@@ -7,9 +7,9 @@ export default function CustomLink(props) {
       <NavLink 
         to={to}
         className={({isActive}) => {
-          return isActive ? "text-lg bg-orange-100 text-gray-800 p-4 inline-block rounded-md" 
+          return isActive ? "text-lg lg:text-xl bg-orange-100 text-gray-800 p-4 inline-block rounded-md" 
           : 
-          'transition ease-in-out 150ms text-lg text-orange-100 rounded-md p-4 inline-block hover:bg-orange-100  hover:text-gray-800'
+          'transition ease-in-out 150ms text-lg lg:text-xl text-orange-100 rounded-md p-4 inline-block hover:bg-orange-100  hover:text-gray-800'
         }}
       >
         {linkName}
