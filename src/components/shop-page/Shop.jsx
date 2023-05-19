@@ -1,6 +1,7 @@
 import Card from "./Card"
 import Header from "../ui/Header"
 import SkeletonCard from "./SkeletonCard";
+import { FilterSection } from "./FilterSection";
 import { Loading } from "../ui/Loading";
 import { useState, useEffect } from "react";
 import { db } from "../../Firebase";
@@ -30,6 +31,7 @@ export default function Shop(props) {
   return (
     <main className="min-h-screen">
       <Header section='Collection' link='/' routeName='Home' item='Products'/>
+      <FilterSection />
       <div className="p-12 pt-20 gap-6 justify-center items-center grid grid-cols-1 md:grid-col-2  lg:grid-cols-4 lg:grid-rows-2">
         {loading ? 
         <>
