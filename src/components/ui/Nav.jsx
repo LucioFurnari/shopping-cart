@@ -53,7 +53,7 @@ export default function Nav(props) {
         </li>
       </ul>
       <button className="md:hidden" onClick={handleMenu}>
-        {!menu && <AiOutlineMenu className=" fill-orange-100 w-12 h-auto"/>}
+        {!menu && <AiOutlineMenu aria-label="Menu" className="fill-orange-100 w-12 h-auto"/>}
       </button>
     </nav>
     {menu && <div onClick={handleMenu} className=" backdrop-blur-sm bg-white/30 fixed top-0 right-0  w-screen h-screen "></div>}
