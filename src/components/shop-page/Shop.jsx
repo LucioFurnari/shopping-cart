@@ -1,14 +1,19 @@
 import Card from "./Card"
 import Header from "../ui/Header"
 import SkeletonCard from "./SkeletonCard";
+import { shopContext, shopDispatchContext } from "../ShopContext";
 import { FilterSection } from "./FilterSection";
-import { Loading } from "../ui/Loading";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { db } from "../../Firebase";
 import { collection, getDocs, getDoc } from "firebase/firestore";
 
 export default function Shop(props) {
   // const {dataBase} = props
+  // Shop context //
+  const shopList = useContext(shopContext);
+
+  // Shop dispatch // 
+  const shopDispatch = useContext(shopDispatchContext);
 
   //Save Shop database //
   const [shopData, setData] = useState([])
@@ -22,10 +27,17 @@ export default function Shop(props) {
       setLoading(true)
       const data = await getDocs(collection(db, 'products'));
       data.forEach((doc) => newData.push(doc.data()))
-      setData(newData)
-      setLoading(false)
+      // setData(newData)
+      return newData
     }
     getData()
+    .then(data => {
+      shopDispatch({
+        type:'CREATE-SHOP-LIST',
+        data,
+      })
+      setLoading(false)
+    })
   },[])
 
   return (
@@ -42,7 +54,7 @@ export default function Shop(props) {
           <SkeletonCard />
         </>
         :
-        shopData.map((item,index) => {
+        shopList.map((item,index) => {
           const { id } = item;
           return <Card {...item} key={id} id={index} />
           })

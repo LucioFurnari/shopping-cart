@@ -1,5 +1,5 @@
 import { createContext } from "react";
-import dataBase from "./db";
+// import dataBase from "./db";
 
 // Wishlist context //
 export const WishListContext = createContext(null);
@@ -9,11 +9,33 @@ export const WishlistDispatchContext = createContext(null);
 export const cartContext = createContext(null);
 export const cartDispatchContext = createContext(null);
 
+// Shop context //
+export const shopContext = createContext(null);
+export const shopDispatchContext = createContext(null);
+
+
+// Shop Reducer //
+
+export function shopReducer(shopList, action) {
+  switch (action.type) {
+    case 'CREATE-SHOP-LIST': {
+      return action.data
+    }
+    case 'FILTER-SHOP': {
+      console.log(action.name)
+      const filterList = shopList.filter((item) => item.name.includes(action.name))
+      return filterList;
+    }
+  }
+}
+
+
 // Wishlist Reducer //
 export function wishlistReducer(list, action) {
   switch (action.type) {
     case 'added': {
-      let [newItem] = dataBase.filter((item,index) => item.id == action.id)
+      let [newItem] = action.data;
+      // let [newItem] = dataBase.filter((item,index) => item.id == action.id)
       // Detect if the list is empty or have the same item selected //
 
       const hasItem = list.some((item) => (item.id == newItem.id))
@@ -42,14 +64,16 @@ export function wishlistReducer(list, action) {
 
 // Cart Reducer //
 
-export function shopSectionReducer(item, action) {
-  const {cart, totalPrice, cartAmount} = item;
+export function cartSectionReducer(cartObj, action) {
+  const {cart, totalPrice, cartAmount} = cartObj;
   switch (action.type) {
     case 'ADD-TO-CART': {
-      // Search item in the data base //
-      const [newItem] = dataBase.filter((item) => item.id == action.id);
+      // Get Item from data base //
+      const [newItem] = action.data;
+      // const [newItem] = dataBase.filter((item) => item.id == action.id);
 
       const hasItem = cart.some((item) => item.name === newItem.name)
+
       if (hasItem) {
         const newArr = cart.map(item => {
         if(item.name === newItem.name) {
