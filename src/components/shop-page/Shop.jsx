@@ -1,16 +1,19 @@
 import Card from "./Card"
 import Header from "../ui/Header"
 import SkeletonCard from "./SkeletonCard";
-import { shopContext, shopDispatchContext } from "../ShopContext";
+import { NotFoundCard } from "./NotFoundCard";
+import { shopContext, shopDispatchContext, filterContext } from "../ShopContext";
 import { FilterSection } from "./FilterSection";
 import { useState, useEffect, useContext } from "react";
 import { db } from "../../Firebase";
 import { collection, getDocs, getDoc } from "firebase/firestore";
 
-export default function Shop(props) {
-  // const {dataBase} = props
+export default function Shop() {
   // Shop context //
   const shopList = useContext(shopContext);
+
+  // Filter context //
+  const filterList = useContext(filterContext)
 
   // Shop dispatch // 
   const shopDispatch = useContext(shopDispatchContext);
@@ -54,11 +57,15 @@ export default function Shop(props) {
           <SkeletonCard />
         </>
         :
-        shopList.map((item,index) => {
+        // Detect if the copy of the shop array is empty //
+        (filterList.length === 0) ?
+        <NotFoundCard />
+        :
+        // Create the cards of the products with the copy of the shop array//
+        filterList.map((item,index) => {
           const { id } = item;
           return <Card {...item} key={id} id={index} />
           })
-        
       }
       </div>
     </main>
