@@ -1,11 +1,8 @@
 import { useState, useContext } from 'react'
 import { AiOutlineSearch } from 'react-icons/ai'
-import { shopContext, shopDispatchContext } from '../ShopContext';
+import { shopContext, shopDispatchContext, filterContext } from '../ShopContext';
 
 export function FilterSection() {
-  // Shop context //
-  const shopList = useContext(shopContext);
-
   // Shop dispatch // 
   const shopDispatch = useContext(shopDispatchContext);
 
@@ -15,7 +12,6 @@ export function FilterSection() {
   const handleInput = (ev) => setInput(ev.target.value)
   const handleFilter = (ev) => {
     ev.preventDefault();
-    console.log(input)
     shopDispatch({type: 'FILTER-SHOP', name: input})
   };
 
