@@ -1,73 +1,64 @@
 import { Routes, Route } from "react-router-dom";
-import {Root, loader as RootLoader} from './routes/root';
+import { Home } from "./components/Home";
 import ErrorPage from './routes/error.page';
 import Cart from './components/cart-page/CartSection';
-import Shop from './components/Shop'
 import Wishlist from "./components/wishlist-page/Wishlist";
-import Nav from './components/Nav'
-import Footer from "./components/Footer";
+import Nav from './components/ui/Nav'
+import Footer from "./components/ui/Footer";
 import { Loading } from "./components/ui/Loading";
-import { useEffect, useState, Suspense, lazy, createContext, useReducer } from "react";
+import { Suspense, lazy, useReducer } from "react";
 const LazyProduct = lazy(() => import("./components/product-page/Product"));
-
-import { db } from "./Firebase";
-import { collection, getDocs, getDoc } from "firebase/firestore";
+const LazyShop = lazy(() => import('./components/shop-page/Shop'))
 
 // Import context //
 import {
+  shopContext,
+  filterContext,
+  shopDispatchContext,
+  shopReducer,
   WishListContext,
   WishlistDispatchContext,
   wishlistReducer,
   cartContext,
   cartDispatchContext,
-  shopSectionReducer
+  cartSectionReducer
 } from "./components/ShopContext";
 
 function App() {
+  // Shop reducer with shop array // 
+  const [shopList, shopDispatch] = useReducer(shopReducer, {shop: [], filter: []});
   // Wishlist reducer with wishlist array //
   const [wishlist, dispatch] = useReducer(wishlistReducer, []);
   // Cart reducer with cart array //
-  const [cartList, cartDispatch] = useReducer(shopSectionReducer, {cart:[], totalPrice: 0, cartAmount: 0});
-  // Shop database //
-  const [shopData, setData] = useState([])
-
-  useEffect(() => {
-    const getData = async () => {
-      const newData = []
-      const data = await getDocs(collection(db, 'products'));
-      data.forEach((doc) => newData.push(doc.data()))
-      setData(newData)
-    }
-    getData()
-    
-  },[])
-
-  function completePurchase() {
-    setCart([])
-    setTotalPrice(0)
-    setCartTotal(0)
-  }
+  const [cartList, cartDispatch] = useReducer(cartSectionReducer, {cart:[], totalPrice: 0, cartAmount: 0});
 
   return (
     <div className="App relative">
+    <shopContext.Provider value={shopList.shop}>
+    <filterContext.Provider value={shopList.filter}>
+    <shopDispatchContext.Provider value={shopDispatch}>
     <cartContext.Provider value={ cartList }>
     <cartDispatchContext.Provider value={ cartDispatch }>
     <WishlistDispatchContext.Provider value={dispatch}>
     <WishListContext.Provider value={wishlist}>
     <Nav />
     <Routes>
-      <Route path='/' element={<Root />} />
-      <Route path='/shop' element={<Shop dataBase={shopData}/>} />
+      <Route path='/' element={<Home />} />
+      <Route path='/shop' element={
+        <Suspense fallback={<Loading />}>   
+          <LazyShop />
+        </Suspense>
+      } />
         <Route path='/shop/:item'
         element={
           <Suspense fallback={<Loading />}>    
-              <LazyProduct dataBase={shopData} />
-          </Suspense>
+              <LazyProduct />
+            </Suspense>
           }
         />
       <Route path='/cart'
       element={
-        <Cart handlePurchase={completePurchase}/>
+        <Cart />
         }
       />
       <Route path='/wishlist' element={<Wishlist />}></Route>
@@ -78,6 +69,9 @@ function App() {
     </WishlistDispatchContext.Provider>
     </cartDispatchContext.Provider>
     </cartContext.Provider>
+    </shopDispatchContext.Provider>
+    </filterContext.Provider>
+    </shopContext.Provider>
   </div>
   )
 }
