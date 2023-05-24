@@ -12,11 +12,15 @@ export function FilterSection() {
   const handleInput = (ev) => setInput(ev.target.value)
   const handleFilter = (ev) => {
     ev.preventDefault();
-    shopDispatch({type: 'FILTER-SHOP', name: input})
+    shopDispatch({type: 'FILTER-SHOP', name: input.toLowerCase()})
   };
 
   const handleSelector = () => setSelect({...select, hasSelect: !select.hasSelect});
-  const handleSelectValue = (ev) => setSelect({...select, selectValue: ev.target.value})
+  const handleSelectValue = (ev) => {
+    const { value } = ev.target
+    shopDispatch({type: `SORT_${value}`})
+    setSelect({...select, selectValue: ev.target.value})
+  }
 
   return (
     <section className="flex flex-col md:flex-row items-center justify-center md:justify-evenly py-6">
@@ -34,8 +38,8 @@ export function FilterSection() {
           <ListItem handleValue={handleSelectValue} name='Feature' value='Feature' state={select.selectValue}/>
           <ListItem handleValue={handleSelectValue} name='Alphabetically, A-Z' value='A-Z' state={select.selectValue}/>
           <ListItem handleValue={handleSelectValue} name='Alphabetically, Z-A' value='Z-A' state={select.selectValue}/>
-          <ListItem handleValue={handleSelectValue} name='Price, low to high' value='Price low to high' state={select.selectValue}/>
-          <ListItem handleValue={handleSelectValue} name='Price, high to low' value='Price high to low' state={select.selectValue}/>
+          <ListItem handleValue={handleSelectValue} name='Price, low to high' value='Price-low-to-high' state={select.selectValue}/>
+          <ListItem handleValue={handleSelectValue} name='Price, high to low' value='Price-high-to-low' state={select.selectValue}/>
         </ul>
       </div>
     </section>
