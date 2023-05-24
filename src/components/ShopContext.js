@@ -21,7 +21,7 @@ export function shopReducer(shopList, action) {
   const {shop, filter} = shopList;
   switch (action.type) {
     case 'CREATE-SHOP-LIST': {
-      return {shop: action.data, filter: action.data}
+      return {...shopList, shop: action.data, filter: action.data}
     }
     case 'FILTER-SHOP': {
       if(!action.name == '') {
@@ -32,40 +32,39 @@ export function shopReducer(shopList, action) {
       }
     }
     case 'SORT_Feature': {
-      
       return {...shopList, filter: shop}
     }
     case 'SORT_A-Z': {
-      filter.sort((a,b) => {
+      const filterList = [].concat(filter).sort((a,b) => {
         const nameA = a.name.toUpperCase();
         const nameB = b.name.toUpperCase();
         return (nameA > nameB) ? 1 : ((nameB > nameA) ? -1 : 0)
       })
-      return {...shopList, filter}
+      return {...shopList, filter: filterList}
     }
     case 'SORT_Z-A': {
-      filter.sort((a,b) => {
+      const filterList = [].concat(filter).sort((a,b) => {
         const nameA = a.name.toUpperCase();
         const nameB = b.name.toUpperCase();
         return (nameA < nameB) ? 1 : ((nameB > nameA) ? -1 : 0)
       })
-      return {...shopList, filter}
+      return {...shopList, filter: filterList}
     }
     case 'SORT_Price-low-to-high': {
-      filter.sort((a,b) => {
+      const filterList = [].concat(filter).sort((a,b) => {
         const priceA = a.price;
         const priceB = b.price;
         return priceA - priceB
       })
-      return {...shopList, filter}
+      return {...shopList, filter: filterList}
     }
     case 'SORT_Price-high-to-low': {
-      filter.sort((a,b) => {
+      const filterList = [].concat(filter).sort((a,b) => {
         const priceA = a.price;
         const priceB = b.price;
         return priceB - priceA
       })
-      return {...shopList, filter}
+      return {...shopList, filter: filterList}
     }
   }
 }
