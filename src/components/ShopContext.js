@@ -11,20 +11,61 @@ export const cartDispatchContext = createContext(null);
 
 // Shop context //
 export const shopContext = createContext(null);
+export const filterContext = createContext(null);
 export const shopDispatchContext = createContext(null);
 
 
 // Shop Reducer //
 
 export function shopReducer(shopList, action) {
+  const {shop, filter} = shopList;
   switch (action.type) {
     case 'CREATE-SHOP-LIST': {
-      return action.data
+      return {shop: action.data, filter: action.data}
     }
     case 'FILTER-SHOP': {
-      console.log(action.name)
-      const filterList = shopList.filter((item) => item.name.includes(action.name))
-      return filterList;
+      if(!action.name == '') {
+        const filterList = shop.filter((item) => item.name.toLowerCase().includes(action.name))
+        return {...shopList, filter: filterList};
+      } else {
+        return {...shopList, filter: shop};
+      }
+    }
+    case 'SORT_Feature': {
+      
+      return {...shopList, filter: shop}
+    }
+    case 'SORT_A-Z': {
+      filter.sort((a,b) => {
+        const nameA = a.name.toUpperCase();
+        const nameB = b.name.toUpperCase();
+        return (nameA > nameB) ? 1 : ((nameB > nameA) ? -1 : 0)
+      })
+      return {...shopList, filter}
+    }
+    case 'SORT_Z-A': {
+      filter.sort((a,b) => {
+        const nameA = a.name.toUpperCase();
+        const nameB = b.name.toUpperCase();
+        return (nameA < nameB) ? 1 : ((nameB > nameA) ? -1 : 0)
+      })
+      return {...shopList, filter}
+    }
+    case 'SORT_Price-low-to-high': {
+      filter.sort((a,b) => {
+        const priceA = a.price;
+        const priceB = b.price;
+        return priceA - priceB
+      })
+      return {...shopList, filter}
+    }
+    case 'SORT_Price-high-to-low': {
+      filter.sort((a,b) => {
+        const priceA = a.price;
+        const priceB = b.price;
+        return priceB - priceA
+      })
+      return {...shopList, filter}
     }
   }
 }
