@@ -2,6 +2,7 @@ import { NavLink } from "react-router-dom"
 import CustomLink from "./CustomLink";
 import { useContext, useEffect, useState } from "react";
 import { AiOutlineShoppingCart, AiOutlineHeart, AiOutlineMenu } from 'react-icons/ai'
+import { BiMenuAltRight } from 'react-icons/bi'
 import { cartContext } from "../ShopContext";
 
 export default function Nav(props) {
@@ -38,18 +39,27 @@ export default function Nav(props) {
       <ul className={`${menu && 'right-0'} fixed top-0 -right-full h-screen transition-[right] duration-300 pt-6 px-8 md:p-0 md:h-auto md:static md:flex md:items-center bg-yellow-900 md:bg-transparent`}>
         <CustomLink to='/' linkName='Home'/>
         <CustomLink to='/shop' linkName='Shop' />
-        <CustomLink to='/wishlist' linkName={<AiOutlineHeart />} />
+        <CustomLink to='/wishlist' linkName={<AiOutlineHeart className="w-8 h-auto"/>} />
         <li className="md:ml-4 text-center">
         <NavLink 
             to='/cart'
             className={({isActive}) => {
-            return isActive ? "relative text-xl bg-orange-100 text-gray-800 p-4 inline-block rounded-md" 
+            return isActive ? "relative text-xl bg-orange-100 text-gray-800 p-2 inline-block rounded-md" 
             : 
-            'relative transition ease-in-out 150ms text-xl text-orange-100 rounded-md p-4 inline-block hover:bg-orange-100  hover:text-gray-800'
+            'relative transition ease-in-out 150ms text-xl text-orange-100 rounded-md p-2 inline-block hover:bg-orange-100  hover:text-gray-800'
             }}
         >
-            <AiOutlineShoppingCart className="group-hover:fill-gray-800"/> {cartAmount > 0 ? <span className="absolute top-0 right-0">{cartAmount}</span> : null}
+            <AiOutlineShoppingCart className="group-hover:fill-gray-800 w-8 h-auto"/> {cartAmount > 0 ? <span className="absolute top-0 right-0">{cartAmount}</span> : null}
         </NavLink>
+        </li>
+        <li className="md:ml-4 text-center relative">
+          <button className=" p-2 hover:bg-orange-100 group rounded-md ">
+            <BiMenuAltRight className="fill-orange-100 group-hover:fill-gray-800 w-8 h-auto"/>
+          </button>
+          <div className=" absolute right-full w-40 top-0 bg-orange-900 after:content-[''] after:absolute after:-right-[13px] after:top-[18px] after:-ml-[15px] after:-mt-[15px] after:w-0 after:z-[1] after:h-0 after:border-l-[15px] after:border-l-orange-900 after:border-t-[15px] after:border-t-transparent after:border-b-[15px] after:border-b-transparent">
+            <a className="inline-block w-full text-start p-2">Log In</a>
+            <a className="inline-block w-full text-start p-2">Create Account</a>
+          </div>
         </li>
       </ul>
       <button className="md:hidden" onClick={handleMenu}>
