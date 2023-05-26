@@ -12,7 +12,11 @@ export default function Nav(props) {
 
   const [menu, setMenu] = useState(false);
 
+  const [subMenu, setSubMenu] = useState(false);
+
   const handleMenu = () => setMenu(!menu);
+
+  const handleSubMenu = () => setSubMenu(!subMenu);
 
   useEffect(() => {
     const handleScroll = (ev) => {
@@ -53,12 +57,12 @@ export default function Nav(props) {
         </NavLink>
         </li>
         <li className="md:ml-4 text-center relative">
-          <button className=" p-2 hover:bg-orange-100 group rounded-md ">
+          <button className="p-2 hover:bg-orange-100 group rounded-md" onClick={handleSubMenu}>
             <BiMenuAltRight className="fill-orange-100 group-hover:fill-gray-800 w-8 h-auto"/>
           </button>
-          <div className=" absolute right-full w-40 top-0 bg-orange-900 after:content-[''] after:absolute after:-right-[13px] after:top-[18px] after:-ml-[15px] after:-mt-[15px] after:w-0 after:z-[1] after:h-0 after:border-l-[15px] after:border-l-orange-900 after:border-t-[15px] after:border-t-transparent after:border-b-[15px] after:border-b-transparent">
-            <a className="inline-block w-full text-start p-2">Log In</a>
-            <a className="inline-block w-full text-start p-2">Create Account</a>
+          <div className={`${!subMenu && 'opacity-100 right-[100%]'} transition-opacity opacity-0 absolute -right-[400%] top-0  w-40  bg-orange-900 after:content-[''] after:absolute after:-right-[13px] after:top-[18px] after:-ml-[15px] after:-mt-[15px] after:w-0 after:z-[1] after:h-0 after:border-l-[15px] after:border-l-orange-900 after:border-t-[15px] after:border-t-transparent after:border-b-[15px] after:border-b-transparent`}>
+            <NavLink to='/login' className="inline-block w-full text-start p-2">Log In</NavLink>
+            <NavLink to='/register' className="inline-block w-full text-start p-2">Create Account</NavLink>
           </div>
         </li>
       </ul>
