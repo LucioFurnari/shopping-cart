@@ -25,7 +25,8 @@ export function shopReducer(shopList, action) {
     }
     case 'FILTER-SHOP': {
       if(!action.name == '') {
-        const filterList = shop.filter((item) => item.name.toLowerCase().includes(action.name))
+        const inputValue = action.name.trim().replace('-','');
+        const filterList = shop.filter((item) => item.name.toLowerCase().replace('-','').includes(inputValue))
         return {...shopList, filter: filterList};
       } else {
         return {...shopList, filter: shop};
