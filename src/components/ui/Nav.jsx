@@ -60,7 +60,7 @@ export default function Nav(props) {
           <button className="p-2 hover:bg-orange-100 group rounded-md" onClick={handleSubMenu}>
             <BiMenuAltRight className="fill-orange-100 group-hover:fill-gray-800 w-8 h-auto"/>
           </button>
-          <div className={`${!subMenu && 'opacity-100 right-[100%]'} transition-opacity opacity-0 absolute -right-[400%] top-0  w-40  bg-orange-900 after:content-[''] after:absolute after:-right-[13px] after:top-[18px] after:-ml-[15px] after:-mt-[15px] after:w-0 after:z-[1] after:h-0 after:border-l-[15px] after:border-l-orange-900 after:border-t-[15px] after:border-t-transparent after:border-b-[15px] after:border-b-transparent`}>
+          <div className={`${!subMenu && 'hidden'} absolute right-full md:right-0 top-0 md:top-full w-40  bg-orange-900 after:content-[''] after:absolute after:-right-[13px] md:after:right-0 after:top-[18px] md:after:-top-[13px] after:-ml-[15px] after:-mt-[15px] after:w-0 after:z-[1] after:h-0 after:border-l-[15px]  after:border-l-orange-900 after:border-t-[15px]  after:border-t-transparent  after:border-b-[15px] after:border-b-transparent md:after:border-b-[15px] md:after:border-b-orange-900 md:after:border-l-[15px] md:after:border-l-transparent md:after:border-r-[15px] md:after:border-r-transparent`}>
             <NavLink to='/login' className="inline-block w-full text-start p-2">Log In</NavLink>
             <NavLink to='/register' className="inline-block w-full text-start p-2">Create Account</NavLink>
           </div>
