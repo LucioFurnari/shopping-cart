@@ -1,7 +1,9 @@
 // Import the functions you need from the SDKs you need
 
 import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
+import { addDoc, collection, getFirestore } from "firebase/firestore";
+import { getStorage, ref, getDownloadURL} from 'firebase/storage'
+import { getAuth } from 'firebase/auth'
 
 // TODO: Add SDKs for Firebase products that you want to use
 
@@ -32,4 +34,13 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 
+// Initialize Authentication
+export const auth = getAuth(app);
+
 export const db = getFirestore(app);
+
+// Get a reference to the storage service, which is used to create references in your storage bucket
+export const storage = getStorage();
+
+// Create a storage reference from our storage service
+export const storageRef = ref(storage, 'images/chcolate-muffin.jpg');
