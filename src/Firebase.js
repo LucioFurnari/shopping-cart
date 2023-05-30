@@ -31,12 +31,12 @@ const firebaseConfig = {
 
 
 // Initialize Firebase
-
 const app = initializeApp(firebaseConfig);
 
 // Initialize Authentication
 export const auth = getAuth(app);
 
+// Initialize DataBase
 export const db = getFirestore(app);
 
 // Get a reference to the storage service, which is used to create references in your storage bucket
