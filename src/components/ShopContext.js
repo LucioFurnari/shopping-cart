@@ -14,6 +14,25 @@ export const shopContext = createContext(null);
 export const filterContext = createContext(null);
 export const shopDispatchContext = createContext(null);
 
+// User context //
+export const userContext = createContext(null);
+export const userDispatchContext = createContext(null);
+
+// User Reducer //
+
+export function userReducer(userInfo, action) {
+  switch(action.type) {
+    case 'LOG-IN': {
+      return {...userInfo, isSigned: true, email: action.userEmail}
+    }
+    case 'GET-USER': {
+      return {...userInfo, isSigned: true, email: action.userEmail}
+    }
+    case 'SIGN-OUT': {
+      return {...userInfo, isSigned: false}
+    }
+  }
+}
 
 // Shop Reducer //
 
