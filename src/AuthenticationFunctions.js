@@ -1,6 +1,6 @@
 // Get auth //
 import { auth } from './Firebase'
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth"
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "firebase/auth"
 
 export async function createUser(email, password) {
   createUserWithEmailAndPassword(auth, email, password )
@@ -41,4 +41,20 @@ export const handleSignOut = (dispatch) => {
       console.log('Sign Out succesful')
     })
     .catch((error) => console.log('Something happend' + error))
+}
+
+export const handleUserState = (dispatch) => {
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      // User is signed in, see docs for a list of available properties
+      // https://firebase.google.com/docs/reference/js/auth.user
+      dispatch({type: 'GET-USER', userEmail: user.email})
+      const uid = user.uid;
+      console.log(user)
+      // ...
+    } else {
+      // User is signed out
+      // ...
+    }
+  });
 }
