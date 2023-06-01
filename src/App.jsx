@@ -5,13 +5,20 @@ import Cart from './components/cart-page/CartSection';
 import Wishlist from "./components/wishlist-page/Wishlist";
 import Nav from './components/ui/Nav'
 import Footer from "./components/ui/Footer";
+import { SignUpPage } from "./components/sign-up-page/signUpSection";
+import { LogInPage } from "./components/login-page/loginSection";
 import { Loading } from "./components/ui/Loading";
-import { Suspense, lazy, useReducer } from "react";
+import { Suspense, lazy, useReducer, useEffect } from "react";
 const LazyProduct = lazy(() => import("./components/product-page/Product"));
 const LazyShop = lazy(() => import('./components/shop-page/Shop'))
 
+import { handleUserState } from "./AuthenticationFunctions";
+
 // Import context //
 import {
+  userContext,
+  userDispatchContext,
+  userReducer,
   shopContext,
   filterContext,
   shopDispatchContext,
@@ -25,6 +32,8 @@ import {
 } from "./components/ShopContext";
 
 function App() {
+  // Use reducer //
+  const [userInfo, userDispatch] = useReducer(userReducer, {isSigned: false, email: ''}) 
   // Shop reducer with shop array // 
   const [shopList, shopDispatch] = useReducer(shopReducer, {shop: [], filter: []});
   // Wishlist reducer with wishlist array //
@@ -32,8 +41,14 @@ function App() {
   // Cart reducer with cart array //
   const [cartList, cartDispatch] = useReducer(cartSectionReducer, {cart:[], totalPrice: 0, cartAmount: 0});
 
+  useEffect(() => {
+    handleUserState(userDispatch)
+  }, [])
+
   return (
     <div className="App relative">
+    <userContext.Provider value={userInfo}>
+    <userDispatchContext.Provider value={userDispatch}>
     <shopContext.Provider value={shopList.shop}>
     <filterContext.Provider value={shopList.filter}>
     <shopDispatchContext.Provider value={shopDispatch}>
@@ -49,19 +64,21 @@ function App() {
           <LazyShop />
         </Suspense>
       } />
-        <Route path='/shop/:item'
-        element={
-          <Suspense fallback={<Loading />}>    
-              <LazyProduct />
-            </Suspense>
-          }
-        />
+      <Route path='/shop/:item'
+      element={
+        <Suspense fallback={<Loading />}>    
+            <LazyProduct />
+          </Suspense>
+        }
+      />
       <Route path='/cart'
       element={
         <Cart />
         }
       />
       <Route path='/wishlist' element={<Wishlist />}></Route>
+      <Route path='/login' element={<LogInPage/>}></Route> 
+      <Route path='/sign-up' element={<SignUpPage />}></Route>
       <Route path="/*" element={<ErrorPage />}/>
     </Routes>
     <Footer />
@@ -72,6 +89,8 @@ function App() {
     </shopDispatchContext.Provider>
     </filterContext.Provider>
     </shopContext.Provider>
+    </userDispatchContext.Provider>
+    </userContext.Provider>
   </div>
   )
 }
