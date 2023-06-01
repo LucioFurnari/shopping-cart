@@ -1,12 +1,20 @@
 // Get auth //
 import { auth } from './Firebase'
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "firebase/auth"
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, updateProfile } from "firebase/auth"
 
-export async function createUser(email, password) {
+// Get data base //
+import { db } from './Firebase';
+import { setDoc, getDoc, doc } from 'firebase/firestore';
+
+export async function createUser(email, password, firstName, lastName) {
   createUserWithEmailAndPassword(auth, email, password )
   .then((userCredential) => {
     const user = userCredential.user;
-    console.log(user)
+    setDoc(doc(db, 'users', user.uid), {
+      email: email,
+      firstName: firstName,
+      lastName: lastName,
+    })
   })
   .catch((error) => {
     const errorCode = error.code;
@@ -22,7 +30,7 @@ export const handleLogIn = (ev, user, password, dispatch) => {
     // Signed in 
     const user = userCredential.user;
     // Dispatch to save the user state //
-    dispatch({type: 'LOG-IN', userEmail: user.email})
+    dispatch({type: 'LOG-IN', userData: user})
     console.log(user.email)
     // ...
   })
@@ -48,13 +56,23 @@ export const handleUserState = (dispatch) => {
     if (user) {
       // User is signed in, see docs for a list of available properties
       // https://firebase.google.com/docs/reference/js/auth.user
-      dispatch({type: 'GET-USER', userEmail: user.email})
-      const uid = user.uid;
-      console.log(user)
+      getUserData(user)
+      .then(data => dispatch({type: 'GET-USER', userData: data}))
+
+      // The user object has basic properties such as display name, email, etc.
+      const displayName = user.displayName;
+      const email = user.email;
+      const photoURL = user.photoURL;
+      const emailVerified = user.emailVerified;
       // ...
     } else {
       // User is signed out
       // ...
     }
   });
+}
+
+const getUserData = async (user) => {
+  const data = await getDoc(doc(db, 'users', user.uid))
+  return data.data()
 }
