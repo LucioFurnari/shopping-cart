@@ -30,8 +30,8 @@ export const handleLogIn = (ev, user, password, dispatch) => {
     // Signed in 
     const user = userCredential.user;
     // Dispatch to save the user state //
-    dispatch({type: 'LOG-IN', userData: user})
-    console.log(user.email)
+    getUserData(user)
+    .then(data => dispatch({type: 'LOG-IN', userData: data}))
     // ...
   })
   .catch((error) => {
