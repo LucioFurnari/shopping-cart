@@ -27,7 +27,7 @@ export function LogInPage() {
     <Header section='Sign-up' link='/' routeName='Home' item='Sign-up'/>
     <main className="flex flex-col items-center min-h-[calc(100vh-272px)]">
       {userInfo.isSigned && <Navigate to='/' />}
-      <form onSubmit={(ev) => handleLogIn(ev, formInputs.user, formInputs["user-pass"], userDispatch)} className="flex flex-col w-[30rem] bg-zinc-100 border-2 my-20">
+      <form onSubmit={(ev) => handleLogIn(ev, formInputs.user, formInputs["user-pass"], userDispatch)} className="flex flex-col max-w-[30rem] w-full px-4 bg-zinc-100 border-2 my-20">
         <LogInInput func={handleInput} name='user' type='text' placeholder='Username'/>
         <LogInInput func={handleInput} name='user-pass' type='text' placeholder='Password' />
         <button type="submit" className="p-4 bg-yellow-800 text-white font-semibold hover:bg-yellow-700 active:bg-yellow-900">Log In</button>
