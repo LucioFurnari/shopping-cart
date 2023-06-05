@@ -21,15 +21,16 @@ export const userDispatchContext = createContext(null);
 // User Reducer //
 
 export function userReducer(userInfo, action) {
+  const { userData } = action
   switch(action.type) {
     case 'LOG-IN': {
-      return {...userInfo, isSigned: true, email: action.userEmail}
+      return {...userInfo, isSigned: true, email: userData.email, firstName: userData.firstName, lastName: userData.lastName}
     }
     case 'GET-USER': {
-      return {...userInfo, isSigned: true, email: action.userEmail}
+      return {...userInfo, isSigned: true, email: userData.email, firstName: userData.firstName, lastName: userData.lastName}
     }
     case 'SIGN-OUT': {
-      return {...userInfo, isSigned: false}
+      return {...userInfo, isSigned: false, email: '', firstName: '', lastName: ''}
     }
   }
 }
