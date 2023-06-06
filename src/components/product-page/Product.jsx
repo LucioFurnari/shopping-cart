@@ -40,19 +40,20 @@ export default function Product(props) {
   // useEffect(() => setProduct([shopData.find(elem => elem.name == item)]),[]);
 
   return(
-    <section >
+    <>
       <Header section='Product' link={'/shop'} routeName={'All'} item={item}/>
-      <div className="p-12 pt-20 justify-center grid grid-cols-1 grid-rows-1 lg:grid-cols-[1fr_200px] lg:grid-rows-[1fr_200px]">
-      {loading ? <ProductSkeletonCard /> :
-        shopData.map((item,index) => {
+      <main className="p-12 pt-20 min-h-screen ">
+      { loading ? <ProductSkeletonCard /> 
+      : 
+      shopData.map((item,index) => {
         return (
           <ItemCard 
           {...item} 
           key={index}
           />
         )})
-        }
-      </div>
-    </section>
+      }
+      </main>
+    </>
   )
 }
