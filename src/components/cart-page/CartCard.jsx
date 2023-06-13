@@ -26,8 +26,9 @@ export default function CartCard(props) {
   }
 
   return (
-    <div className=" bg-zinc-300">
+    <div className="bg-zinc-300 flex flex-col items-center xl:flex-row xl:max-w-7xl">
       <img src={img}></img>
+    <div className="xl:ml-8">
       <p className="text-3xl pt-4">{name}</p>
       <p className="text-2xl pt-4">Price: {price}.00 $</p>
       {/* <p className="text-2xl pt-4">{quantity > 1 ? 'Amount: x' + quantity : null}</p> */}
@@ -38,6 +39,7 @@ export default function CartCard(props) {
       </div>
       <p className="text-2xl pt-4 font-semibold">Total price: {price * quantity}</p>
       <button className="p-4 pl-8 pr-8 mb-4 mt-4 text-xl bg-yellow-900 text-yellow-100" id={id} onClick={(ev) => handleRemoveItem(ev, quantity)} >Remove item</button>
+    </div>
     </div>
   )
 }
