@@ -34,3 +34,32 @@ export const setItemToCart = async (userId, item, itemQuantity) => {
     })
   }
 }
+
+// Get data form the carts collection WIP //
+export const getUserCart = async (uid) => {
+  const products = collection(db, 'products');
+  const cartRef = doc(db, 'carts', uid)
+  const cartSnap = await getDoc(cartRef)
+  
+  // Create a query
+  const copyCart = []
+  let price = 0
+
+
+  const list = cartSnap.data().cartItems.map( async (item) => {
+    const q = query(products, where('id', '==', item.id))
+    return {itemData: await getDocs(q), quantity: item.quantity}
+  })
+
+  const querySnapshots = await Promise.all(list)
+  querySnapshots.forEach((querySnapshot) => {
+    console.log(querySnapshot)
+    querySnapshot.itemData.forEach((doc) => {
+      copyCart.push({...doc.data(), quantity: querySnapshot.quantity});
+
+      price += doc.data().price;
+    });
+  });
+
+  return ({copyCart, price})
+}
