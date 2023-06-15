@@ -129,19 +129,18 @@ export function cartSectionReducer(cartObj, action) {
   const {cart, totalPrice, cartAmount} = cartObj;
   switch (action.type) {
     // WIP //
-    case 'ADD-TO-CART': {
-      console.log(action.data)
-      return {
-        cart: action.data,
-        cartAmount: (cartAmount + action.quantity),
-        totalPrice: (totalPrice + (action.price * action.quantity))
-      }
-    }
+    // case 'ADD-TO-CART': {
+    //   return {
+    //     cart: action.data,
+    //     cartAmount: (cartAmount + action.quantity),
+    //     totalPrice: (action.price)
+    //   }
+    // }
     case 'SET-TO-CART': {
       return {
         cart: action.data,
-        cartAmount: (cartAmount + action.quantity),
-        totalPrice: (totalPrice + (action.price * action.quantity))
+        cartAmount: (action.quantity),
+        totalPrice: (action.price)
       }
     }
     // case 'ADD-TO-CART': {
