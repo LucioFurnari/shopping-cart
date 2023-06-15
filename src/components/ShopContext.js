@@ -24,13 +24,13 @@ export function userReducer(userInfo, action) {
   const { userData } = action
   switch(action.type) {
     case 'LOG-IN': {
-      return {...userInfo, isSigned: true, email: userData.email, firstName: userData.firstName, lastName: userData.lastName}
+      return {...userInfo, isSigned: true, email: userData.email, firstName: userData.firstName, lastName: userData.lastName, id: userData.uid}
     }
     case 'GET-USER': {
-      return {...userInfo, isSigned: true, email: userData.email, firstName: userData.firstName, lastName: userData.lastName}
+      return {...userInfo, isSigned: true, email: userData.email, firstName: userData.firstName, lastName: userData.lastName, id: userData.uid}
     }
     case 'SIGN-OUT': {
-      return {...userInfo, isSigned: false, email: '', firstName: '', lastName: ''}
+      return {...userInfo, isSigned: false, email: '', firstName: '', lastName: '', id: ''}
     }
   }
 }
@@ -128,41 +128,56 @@ export function wishlistReducer(list, action) {
 export function cartSectionReducer(cartObj, action) {
   const {cart, totalPrice, cartAmount} = cartObj;
   switch (action.type) {
+    // WIP //
     case 'ADD-TO-CART': {
-      // Get Item from data base //
-      const [newItem] = action.data;
-      // const [newItem] = dataBase.filter((item) => item.id == action.id);
-
-      const hasItem = cart.some((item) => item.name === newItem.name)
-
-      if (hasItem) {
-        const newArr = cart.map(item => {
-        if(item.name === newItem.name) {
-          return {...item, quantity: item.quantity + action.quantity}
-        } else {
-          return item
-        }
-      })
-
+      console.log(action.data)
       return {
-        cart: newArr,
-        totalPrice: totalPrice + newItem.price * action.quantity,
-        cartAmount: cartAmount + action.quantity,
-      };
-      } else {
-        return {
-          cart: [...cart, {
-            name: newItem.name,
-            price: newItem.price,
-            img: newItem.img,
-            quantity: action.quantity,
-            id: newItem.id.toString()
-            }],
-          cartAmount: (cartAmount + action.quantity),
-          totalPrice: (totalPrice + (newItem.price*action.quantity))
-        }
+        cart: action.data,
+        cartAmount: (cartAmount + action.quantity),
+        totalPrice: (totalPrice + (action.price * action.quantity))
       }
+    }
+    case 'SET-TO-CART': {
+      return {
+        cart: action.data,
+        cartAmount: (cartAmount + action.quantity),
+        totalPrice: (totalPrice + (action.price * action.quantity))
       }
+    }
+    // case 'ADD-TO-CART': {
+    //   // Get Item from data base //
+    //   const [newItem] = action.data;
+    //   // Detect if the item exist in the cart objet array //
+    //   const hasItem = cart.some((item) => item.name === newItem.name)
+
+    //   if (hasItem) {
+    //     const newArr = cart.map(item => {
+    //     if(item.name === newItem.name) {
+    //       return {...item, quantity: item.quantity + action.quantity}
+    //     } else {
+    //       return item
+    //     }
+    //     })
+
+    //   return {
+    //     cart: newArr,
+    //     totalPrice: totalPrice + newItem.price * action.quantity,
+    //     cartAmount: cartAmount + action.quantity,
+    //   };
+    //   } else {
+    //     return {
+    //       cart: [...cart, {
+    //         name: newItem.name,
+    //         price: newItem.price,
+    //         img: newItem.img,
+    //         quantity: action.quantity,
+    //         id: newItem.id.toString()
+    //         }],
+    //       cartAmount: (cartAmount + action.quantity),
+    //       totalPrice: (totalPrice + (newItem.price*action.quantity))
+    //     }
+    //   }
+    //   }
     case 'REMOVE-FROM-CART': {
       const [item] = cart.filter((item) => item.id == action.id);
       return {
