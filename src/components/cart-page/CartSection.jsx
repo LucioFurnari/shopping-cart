@@ -2,12 +2,30 @@ import emptyCart from '../../assets/images/empty-cart.svg'
 import CartCard from './CartCard';
 import Header from '../ui/Header';
 import { Link } from 'react-router-dom';
-import { cartContext } from '../ShopContext';
-import { useContext } from 'react';
+import { cartContext, cartDispatchContext, userContext } from '../ShopContext';
+import { useContext, useEffect } from 'react';
+import { getUserCart } from '../../FirestoreFunctions';
 
-export default function Cart(props) {
-  const { list, total, handleDelete, handlePurchase } = props
+export default function Cart() {
+  
   const {cart, totalPrice} = useContext(cartContext)
+  const cartDispatch = useContext(cartDispatchContext)
+
+  // User state //
+  const userState = useContext(userContext)
+
+  useEffect(() => {
+    getUserCart(userState.id)
+    .then((response) => {
+      const {copyCart, price, quantity} = response;
+      cartDispatch({
+        type: 'SET-TO-CART',
+        data: copyCart,
+        price,
+        quantity,
+      })
+    } )
+  }, [])
 
   return(
     <div className='bg-zinc-100 min-h-screen'>
@@ -29,12 +47,12 @@ export default function Cart(props) {
       </div>
       }
       {
-        (cart.length > 0)
-        &&
-        <div className=' bg-zinc-100'>
-          <p>Total price: {totalPrice}</p>
-          <button onClick={handlePurchase}>Purchase</button>
-        </div>
+        // (cart.length > 0)
+        // &&
+        // <div className=' bg-zinc-100'>
+        //   <p>Total price: {totalPrice}</p>
+        //   <button >Purchase</button>
+        // </div>
       } 
     </div>
   )
