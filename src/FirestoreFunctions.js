@@ -1,5 +1,5 @@
 import { db } from "./Firebase"
-import { doc, getDoc, setDoc, updateDoc, arrayUnion, arrayRemove } from "firebase/firestore"
+import { doc, collection, getDoc, getDocs, setDoc, updateDoc, query, where, arrayUnion, arrayRemove } from "firebase/firestore"
 
 // Set data to the carts collection  WIP //
 export const setItemToCart = async (userId, item, itemQuantity) => {
@@ -36,30 +36,33 @@ export const setItemToCart = async (userId, item, itemQuantity) => {
 }
 
 // Get data form the carts collection WIP //
-export const getUserCart = async (uid) => {
-  const products = collection(db, 'products');
-  const cartRef = doc(db, 'carts', uid)
+export const getUserCart = async (userId) => {
+  const productsList = collection(db, 'products');
+  const cartRef = doc(db, 'carts', userId)
   const cartSnap = await getDoc(cartRef)
   
   // Create a query
-  const copyCart = []
-  let price = 0
+  const userCartList = []
+  let totalPrice = 0;
+  let totalQuantity = 0;
 
 
-  const list = cartSnap.data().cartItems.map( async (item) => {
-    const q = query(products, where('id', '==', item.id))
-    return {itemData: await getDocs(q), quantity: item.quantity}
+  const requestList = cartSnap.data().cartItems.map( async (item) => {
+    const queryProduct = query(productsList, where('id', '==', item.id))
+    // return object with product data and quantity // 
+    return {itemData: await getDocs(queryProduct), quantity: item.quantity}
   })
 
-  const querySnapshots = await Promise.all(list)
+  const querySnapshots = await Promise.all(requestList)
   querySnapshots.forEach((querySnapshot) => {
     console.log(querySnapshot)
     querySnapshot.itemData.forEach((doc) => {
-      copyCart.push({...doc.data(), quantity: querySnapshot.quantity});
+      userCartList.push({...doc.data(), quantity: querySnapshot.quantity});
 
-      price += doc.data().price;
+      totalPrice += doc.data().price;
+      totalQuantity += querySnapshot.quantity;
     });
   });
 
-  return ({copyCart, price})
+  return ({userCartList, totalPrice, totalQuantity})
 }
