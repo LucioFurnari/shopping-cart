@@ -14,6 +14,7 @@ export async function createUser(email, password, firstName, lastName) {
       email: email,
       firstName: firstName,
       lastName: lastName,
+      uid: user.uid,
     })
   })
   .catch((error) => {
