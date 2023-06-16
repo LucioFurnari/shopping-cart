@@ -33,7 +33,7 @@ import {
 
 function App() {
   // Use reducer //
-  const [userInfo, userDispatch] = useReducer(userReducer, {isSigned: false, email: '', firstName: '', lastName: ''}) 
+  const [userInfo, userDispatch] = useReducer(userReducer, {isSigned: false, email: '', firstName: '', lastName: '', id: ''}) 
   // Shop reducer with shop array // 
   const [shopList, shopDispatch] = useReducer(shopReducer, {shop: [], filter: []});
   // Wishlist reducer with wishlist array //
