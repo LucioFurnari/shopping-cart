@@ -139,8 +139,8 @@ export function cartSectionReducer(cartObj, action) {
     case 'SET-TO-CART': {
       return {
         cart: action.data,
-        cartAmount: (action.quantity),
-        totalPrice: (action.price)
+        cartAmount: (action.totalQuantity),
+        totalPrice: (action.totalPrice)
       }
     }
     // case 'ADD-TO-CART': {
