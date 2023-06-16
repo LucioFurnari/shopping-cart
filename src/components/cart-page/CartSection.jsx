@@ -17,14 +17,14 @@ export default function Cart() {
   useEffect(() => {
     getUserCart(userState.id)
     .then((response) => {
-      const {copyCart, price, quantity} = response;
+      const {userCartList, totalPrice, totalQuantity} = response;
       cartDispatch({
         type: 'SET-TO-CART',
-        data: copyCart,
-        price,
-        quantity,
+        data: userCartList,
+        totalPrice,
+        totalQuantity,
       })
-    } )
+    })
   }, [])
 
   return(
