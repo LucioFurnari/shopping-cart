@@ -47,13 +47,13 @@ export default function Nav(props) {
         userState.isSigned &&
           <>
           <CustomLink to='/wishlist' linkName={<AiOutlineHeart className="w-8 h-auto"/>} />
-          <li className="md:ml-4 text-center">
+          <li className="md:ml-4 text-center relative p-4">
           <NavLink 
             to='/cart'
             className={({isActive}) => {
-            return isActive ? "relative text-xl border-b-2 border-orange-300 text-orange-300 p-2 inline-block" 
+            return isActive ? "text-xl border-b-2 border-orange-300 text-orange-300 p-2 inline-block" 
             : 
-            'relative transition ease-in-out 150ms text-xl text-gray-200 rounded-md p-2 inline-block   hover:text-orange-300'
+            'transition ease-in-out 150ms text-xl text-gray-200 rounded-md p-2 inline-block   hover:text-orange-300'
             }}
           >
             <AiOutlineShoppingCart className=" w-8 h-auto"/> {cartAmount > 0 ? <span className="absolute top-0 right-0">{cartAmount}</span> : null}
