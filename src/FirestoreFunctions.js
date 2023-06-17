@@ -82,6 +82,22 @@ export const getUserCart = async (userId) => {
   return ({userCartList, totalPrice, totalQuantity})
 }
 
+export const removeItemFromCart = async (userId, productId) => {
+  const cartRef = doc(db, 'carts', userId);
+  const cartData = await getDoc(cartRef);
+
+  // Get the product from the list //
+  const [copyArr] = cartData.data().cartItems.filter((item) => item.id === productId)
+  const itemQuantity = copyArr.quantity
+
+  // Remove the object from the array and update the cart list //
+  await updateDoc(cartRef, {
+    cartItems: arrayRemove({id: productId, quantity: itemQuantity}),
+  })
+
+  return true;
+}
+
 export const getUpdateData = async (userId) => {
   const productsList = collection(db, 'products');
   const cartRef = doc(db, 'carts', userId);
