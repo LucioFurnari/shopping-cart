@@ -1,28 +1,68 @@
-import { useContext } from "react";
-import { cartDispatchContext } from "../ShopContext";
+import { useContext, useState } from "react";
+import { cartDispatchContext, userContext } from "../ShopContext";
+import { setItemToCart, getUserCart, getUpdateData } from "../../FirestoreFunctions";
 
 export default function CartCard(props) {
   const {name, price, quantity, img, id} = props;
-  const dispatch = useContext(cartDispatchContext);
 
-  function handleRemoveItem(ev) {
+  const [disableButton, setDisableButton] = useState(false)
+
+  const dispatch = useContext(cartDispatchContext);
+  // User State // 
+  const userState = useContext(userContext)
+
+  function handleRemoveItem() {
     dispatch({
       type: 'REMOVE-FROM-CART',
       id: id
     });
   };
 
-  function handleDecreaseAmount(ev) {
-    dispatch({
-      type: 'DECREASE-AMOUNT',
-      id: id
+  function handleDecreaseAmount() {
+    
+     // dispatch({
+      //   type: 'DECREASE-AMOUNT',
+      //   id: id
+      // })
+    setDisableButton(true)
+    setItemToCart(userState.id, id, - 1)
+    .then((res) =>{ if (res){
+      getUserCart(userState.id).then(
+        (response) => {
+          console.log('testing')
+          dispatch({
+          type: 'SET-TO-CART',
+          data: response.userCartList,
+          totalQuantity: response.totalQuantity,
+          totalPrice: response.totalPrice
+        })}
+      )
+      setDisableButton(false)
+    }
     })
   }
-  function handleIncreaseAmount(ev) {
-    dispatch({
-      type: 'INCREASE-AMOUNT',
-      id: id
+  function handleIncreaseAmount() {
+      // dispatch({
+      //   type: 'INCREASE-AMOUNT',
+      //   id: id
+      // })
+    setDisableButton(true)
+    setItemToCart(userState.id, id, 1)
+    .then((res) =>{ if (res){
+      getUserCart(userState.id).then(
+        (response) => {
+          console.log('testing')
+          dispatch({
+          type: 'SET-TO-CART',
+          data: response.userCartList,
+          totalQuantity: response.totalQuantity,
+          totalPrice: response.totalPrice
+        })}
+      )
+      setDisableButton(false)
+    }
     })
+    
   }
 
   return (
@@ -33,11 +73,11 @@ export default function CartCard(props) {
       <p className="text-2xl pt-4">Price: {price}.00 $</p>
       {/* <p className="text-2xl pt-4">{quantity > 1 ? 'Amount: x' + quantity : null}</p> */}
       <div className="pt-4">
-        <button className="pl-2 pr-2 bg-zinc-400 text-4xl text-center" onClick={handleDecreaseAmount}>-</button>
+        <button className={`${disableButton && 'bg-zinc-200 text-zinc-500'} pl-2 pr-2 bg-zinc-400 text-4xl text-center`} onClick={handleDecreaseAmount} disabled={disableButton}>-</button>
           <span className="p-2 text-2xl">{quantity}</span>
-        <button className="pl-2 pr-2 bg-zinc-400 text-4xl" onClick={handleIncreaseAmount}>+</button>
+        <button className={`${disableButton && 'bg-zinc-200 text-zinc-500'} pl-2 pr-2 bg-zinc-400 text-4xl`} onClick={handleIncreaseAmount} disabled={disableButton}>+</button>
       </div>
-      <p className="text-2xl pt-4 font-semibold">Total price: {price * quantity}</p>
+      <p className="text-2xl pt-4 font-semibold">Total price: {price * quantity} $</p>
       <button className="p-4 pl-8 pr-8 mb-4 mt-4 text-xl bg-yellow-900 text-yellow-100" id={id} onClick={(ev) => handleRemoveItem(ev, quantity)} >Remove item</button>
     </div>
     </div>
