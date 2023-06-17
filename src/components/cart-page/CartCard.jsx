@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { cartDispatchContext, userContext } from "../ShopContext";
-import { setItemToCart, getUserCart, getUpdateData } from "../../FirestoreFunctions";
+import { setItemToCart, getUserCart, getUpdateData, removeItemFromCart } from "../../FirestoreFunctions";
 
 export default function CartCard(props) {
   const {name, price, quantity, img, id} = props;
@@ -12,10 +12,24 @@ export default function CartCard(props) {
   const userState = useContext(userContext)
 
   function handleRemoveItem() {
-    dispatch({
-      type: 'REMOVE-FROM-CART',
-      id: id
-    });
+    removeItemFromCart(userState.id, id)
+    .then((response) => {
+      if(response) {
+        getUserCart(userState.id).then(
+          (response) => {
+            dispatch({
+            type: 'SET-TO-CART',
+            data: response.userCartList,
+            totalQuantity: response.totalQuantity,
+            totalPrice: response.totalPrice
+          })}
+        )
+      }
+    })
+    // dispatch({
+    //   type: 'REMOVE-FROM-CART',
+    //   id: id
+    // });
   };
 
   function handleDecreaseAmount() {
@@ -29,7 +43,6 @@ export default function CartCard(props) {
     .then((res) =>{ if (res){
       getUserCart(userState.id).then(
         (response) => {
-          console.log('testing')
           dispatch({
           type: 'SET-TO-CART',
           data: response.userCartList,
@@ -78,7 +91,7 @@ export default function CartCard(props) {
         <button className={`${disableButton && 'bg-zinc-200 text-zinc-500'} pl-2 pr-2 bg-zinc-400 text-4xl`} onClick={handleIncreaseAmount} disabled={disableButton}>+</button>
       </div>
       <p className="text-2xl pt-4 font-semibold">Total price: {price * quantity} $</p>
-      <button className="p-4 pl-8 pr-8 mb-4 mt-4 text-xl bg-yellow-900 text-yellow-100" id={id} onClick={(ev) => handleRemoveItem(ev, quantity)} >Remove item</button>
+      <button className="p-4 pl-8 pr-8 mb-4 mt-4 text-xl bg-yellow-900 text-yellow-100" id={id} onClick={handleRemoveItem} >Remove item</button>
     </div>
     </div>
   )
