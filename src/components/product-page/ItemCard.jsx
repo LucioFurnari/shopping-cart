@@ -62,10 +62,10 @@ export default function ItemCard (props) {
     }
   
   function handleAddCart(itemQuantity) {
-    getData(name)
-    .then(product => {
-      setItemToCart(userState.id, product, itemQuantity) // WIP
-    })
+    // getData(name)
+    // .then(product => {
+      setItemToCart(userState.id, id, itemQuantity) // WIP
+    // })
       // cartDispatch({
       //   type: 'ADD-TO-CART',
       //   id: id,
