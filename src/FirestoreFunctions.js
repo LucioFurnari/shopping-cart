@@ -74,7 +74,7 @@ export const getUserCart = async (userId) => {
     querySnapshot.itemData.forEach((doc) => {
       userCartList.push({...doc.data(), quantity: querySnapshot.quantity});
 
-      totalPrice += doc.data().price;
+      totalPrice += (doc.data().price * querySnapshot.quantity);
       totalQuantity += querySnapshot.quantity;
     });
   });
