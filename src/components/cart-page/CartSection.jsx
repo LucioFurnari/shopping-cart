@@ -38,9 +38,13 @@ export default function Cart() {
           <CartCard {...item} key={index}/>
         )
       })}
-      <div className='bg-zinc-100'>
-        <p className='text-xl font-semibold'>Total price: {totalPrice} $</p>
-        <button>Purchase</button>
+      <div className='max-w-[1280px]'>
+        <div className='border-y-2 border-zinc-200 py-6'>
+          <p className='text-xl font-semibold'>Total price: {totalPrice} $</p>
+        </div>
+        <div className='py-6'>
+          <Link to='/checkout' className='p-4 bg-yellow-600 hover:bg-yellow-700 transition-colors ease-in text-white'>Continue purchase</Link>
+        </div>
       </div>
       </div>
       :
