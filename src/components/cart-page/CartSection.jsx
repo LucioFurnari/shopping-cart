@@ -38,6 +38,10 @@ export default function Cart() {
           <CartCard {...item} key={index}/>
         )
       })}
+      <div className='bg-zinc-100'>
+        <p className='text-xl font-semibold'>Total price: {totalPrice} $</p>
+        <button>Purchase</button>
+      </div>
       </div>
       :
       <div className="empty-cart flex items-center justify-center flex-col w-full pt-8 pb-8 bg-slate-50">
@@ -45,14 +49,6 @@ export default function Cart() {
         <p className='text-xl mt-4 mb-4'>Nothing found in the cart</p>
         <Link to='/shop'>Star Shopping</Link>
       </div>
-      }
-      {
-        // (cart.length > 0)
-        // &&
-        // <div className=' bg-zinc-100'>
-        //   <p>Total price: {totalPrice}</p>
-        //   <button >Purchase</button>
-        // </div>
       } 
     </div>
   )
