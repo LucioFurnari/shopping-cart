@@ -5,7 +5,7 @@ import { AiOutlineUser } from 'react-icons/ai'
 import { BiMenuAltRight } from 'react-icons/bi'
 
 import { userDispatchContext, userContext } from "../ShopContext";
-import { handleSignOut } from "../../AuthenticationFunctions";
+import { handleSignOut, loginDemoUser } from "../../AuthenticationFunctions";
 
 export function CustomLink(props) {
   const { to, linkName} = props;
@@ -27,6 +27,7 @@ export function CustomLink(props) {
 
 export function UserAuthLinks() {
   const [subMenu, setSubMenu] = useState(false);
+  const userDispatch = useContext(userDispatchContext)
   // User state //
   const userInfo = useContext(userContext)
 
@@ -39,6 +40,7 @@ export function UserAuthLinks() {
     </button>
     <div className={`${!subMenu && 'hidden'} absolute right-full md:right-0 top-0 md:top-16 w-40  bg-orange-100 after:content-[''] after:absolute after:-right-[13px] md:after:right-0 after:top-[18px] md:after:-top-[13px] after:-ml-[15px] after:-mt-[15px] after:w-0 after:z-[1] after:h-0 after:border-l-[15px]  after:border-l-orange-100 after:border-t-[15px]  after:border-t-transparent  after:border-b-[15px] after:border-b-transparent md:after:border-b-[15px] md:after:border-b-orange-100 md:after:border-l-[15px] md:after:border-l-transparent md:after:border-r-[15px] md:after:border-r-transparent`}>
       {!userInfo.isSigned && <NavLink to='/login' className="inline-block w-full text-start p-2 transition-[color] hover:text-zinc-400">Log In</NavLink>}
+      {!userInfo.isSigned && <button onClick={() => loginDemoUser(userDispatch)} className="inline-block w-full text-start p-2 transition-[color] hover:text-zinc-400">Demo user</button>}
       <NavLink to='/sign-up' className="inline-block w-full text-start p-2 transition-[color] hover:text-zinc-400">Create Account</NavLink>
     </div>
   </li>
