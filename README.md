@@ -1,5 +1,5 @@
 # Shopping cart
-Shopping 
+Online shop create with React and Firebase.
 
 <!-- Site: https://luciofurnari.github.io/CV-Application/ -->
 
@@ -26,7 +26,7 @@ Features:
  - Show the total price, and total quantity of products of the user cart.
 
 
-Todo:
+<!-- Todo:
  - Add more products. ⭕
  - Implement Login AND Register section, create a wishlist and cart for each user. ⭕
  - Add a form/ or other thing to the user buy their products of the cart.
@@ -34,7 +34,7 @@ Todo:
  - Add a filter to the shop section. ✔️
  - Improve the style of the page. ✔️
  - Add a footer. ✔️
- - Add more content to the home page. Maybe some images and info, maybe a image slider. ✔️
+ - Add more content to the home page. Maybe some images and info, maybe a image slider. ✔️ -->
 
 <!-- ❌ ✔️ ⭕ ❓ -->
 
