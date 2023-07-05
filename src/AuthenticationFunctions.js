@@ -77,3 +77,21 @@ const getUserData = async (user) => {
   const data = await getDoc(doc(db, 'users', user.uid))
   return data.data()
 }
+
+export const loginDemoUser = (dispatch) => {
+  signInWithEmailAndPassword(auth, 'demouser@email.com', '741123')
+  .then((userCredential) => {
+    // Signed in 
+    console.log('login')
+    const user = userCredential.user;
+    // Dispatch to save the user state //
+    getUserData(user)
+    .then(data => dispatch({type: 'LOG-IN', userData: data}))
+    // ...
+  })
+  .catch((error) => {
+    console.log('error')
+    const errorCode = error.code;
+    const errorMessage = error.message;
+  });
+}
