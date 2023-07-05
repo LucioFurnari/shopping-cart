@@ -10,6 +10,7 @@ import { LogInPage } from "./components/login-page/loginSection";
 import { CheckoutPage } from "./components/checkout-page/CheckoutPage";
 import { Loading } from "./components/ui/Loading";
 import { Suspense, lazy, useReducer, useEffect } from "react";
+import PrivateRoute from "./components/PrivateRoute";
 const LazyProduct = lazy(() => import("./components/product-page/Product"));
 const LazyShop = lazy(() => import('./components/shop-page/Shop'))
 
@@ -72,13 +73,15 @@ function App() {
           </Suspense>
         }
       />
-      <Route path='/cart'
-      element={
-        <Cart />
-        }
-      />
-      <Route path='/checkout' element={<CheckoutPage />}></Route>
-      <Route path='/wishlist' element={<Wishlist />}></Route>
+      <Route element={<PrivateRoute />}>
+        <Route path='/cart'
+        element={
+          <Cart />
+          }
+        />
+        <Route path='/checkout' element={<CheckoutPage />}></Route>
+        <Route path='/wishlist' element={<Wishlist />}></Route>
+      </Route>
       <Route path='/login' element={<LogInPage/>}></Route> 
       <Route path='/sign-up' element={<SignUpPage />}></Route>
       <Route path="/*" element={<ErrorPage />}/>
