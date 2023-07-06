@@ -10,18 +10,20 @@ export function CheckoutPage () {
   return(
     <>
     <Header section='Checkout' link='/cart' routeName='Cart' item='Checkout'/>
-    <main className=" grid grid-cols-2">
+    <main className="grid grid-cols-2 gap-x-8 p-4 px-8 min-h-[calc(100vh-272px)]">
         <ShippingInformation />
-        <section>
-        <h2>Orden summary</h2>
-        <ul>
+        <section className="p-4">
+        <h2 className="text-xl font-semibold mb-4">Orden summary</h2>
+        <ul className="p-4">
           {cart.map((product) => {
             return (
-            <li key={product.id}>
-              <p className='text-red-500 font-semibold text-xl'>{product.name} 
+            <li className="flex items-center border-b-[1px] border-black mb-4 pb-2" key={product.id}>
+              <img className="w-20 h-auto mr-6" src={product.img}></img>
+              <div>
+                <p className='font-semibold text-xl mr-6'>{product.name}</p>
                 <span className='text-black'>{product.price * product.quantity} $</span>
-              </p>
-              <p>x {product.quantity}</p>
+              </div>
+              <p className="ml-10">{product.quantity} Qty</p>
             </li>
             )
           })}
