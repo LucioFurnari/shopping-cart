@@ -48,7 +48,7 @@ export default function Cart() {
       </div>
       </div>
       :
-      <div className="empty-cart flex items-center justify-center flex-col w-full pt-8 pb-8 bg-slate-50">
+      <div className="empty-cart flex items-center justify-center flex-col w-full pt-8 pb-8 bg-slate-50 min-h-[calc(100vh-272px)]">
         <img className=' w-60' src={emptyCart}></img>
         <p className='text-xl mt-4 mb-4'>Nothing found in the cart</p>
         <Link to='/shop'>Star Shopping</Link>
