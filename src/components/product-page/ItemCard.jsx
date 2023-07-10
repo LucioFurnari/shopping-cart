@@ -25,9 +25,11 @@ const getData = async (itemName) => {
 
 export default function ItemCard (props) {
   const { img, id, name, price, type, stock, description} = props;
+
   const [favorite, setFavorite] = useState(false);
   const [itemQuantity, setQuantity] = useState(1);
   const [seeDesc, setSeeDesc] = useState(false);
+
   // Wishlist dispatch
   const dispatch = useContext(WishlistDispatchContext)
   // Cart dispatch //
@@ -62,48 +64,24 @@ export default function ItemCard (props) {
     }
   
   function handleAddCart(itemQuantity) {
-    // getData(name)
-    // .then(product => {
-      setItemToCart(userState.id, id, itemQuantity) // WIP
-    // })
-      // cartDispatch({
-      //   type: 'ADD-TO-CART',
-      //   id: id,
-      //   quantity,
-      //   data: item,
-      //   name: name
-      // })
-      // getUserCart(userState.id)
-      // .then((response) => {
-      //   cartDispatch({
-      //     type: 'ADD-TO-CART',
-      //     quantity,
-      //     data: response.copyCart,
-      //     price: response.price
-      //   })
-      // })
+    setItemToCart(userState.id, id, itemQuantity)
   }
 
   return (
     <div className="flex flex-col grow items-center justify-center bg-zinc-300  xl:flex-row xl:items-start xl:justify-start xl:max-w-7xl">
-      <div className="relative">
-        <span className="absolute top-4 right-4 text-2xl">{favorite ? <AiFillHeart className="fill-red-900 animate-pulse"/> : <AiOutlineHeart onClick={handleWishlist} className="fill-red-900"/>}</span>
-        <img src={img}></img>
-      </div>
-      {
-        // This is a placeholder, remember to change it //
-        /* <button onClick={handleRemoveList}>Remove favorite</button> */
-      }
+      <img src={img}></img>
       <div className="flex-col ml-4 md:ml-12">
-        <h2 className="text-2xl font-semibold pt-4 pb-4">{name}</h2>
+        <div className='flex items-center'>
+          <h2 className="text-2xl font-semibold pt-4 pb-4">{name}</h2>
+          <span className="text-2xl ml-auto mr-10">{favorite ? <AiFillHeart className="fill-red-900 animate-pulse"/> : <AiOutlineHeart onClick={handleWishlist} className="fill-red-900"/>}</span>
+        </div>
         <p className="text-xl pb-6">Price: <span className="text-xl pl-4 text-orange-800">{price}.00 $</span></p>
-        <p className="text-xl pb-6">Type: <span className="text-xl pl-4 text-zinc-900">{type}</span></p>
+        <p className="text-xl pb-6">Category: <span className="text-xl pl-4 text-zinc-900">{type}</span></p>
         <p className="text-xl pb-6">Availability: 
-          <span className={`text-xl pl-4 ${stock > 0 ? ' text-green-700' : ' text-red-700'}` }>
+          <span className={`text-xl pl-4 ${stock > 0 ? ' text-green-700' : 'text-red-700'}` }>
             {stock > 0 ? 'In stock!' : 'Out of stock'}
           </span>
         </p>
-        <p className="text-xl pb-6">Quantity: <span className="text-xl pl-4 text-zinc-900"></span></p>
         {
           userState.isSigned &&
           <>
