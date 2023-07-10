@@ -11,22 +11,11 @@ export default function Card(props) {
     setQuantity(quantity > 1 ? quantity - 1 : quantity)
   }
   return (
-    <div className="card flex flex-col justify-left items-star h-full  bg-zinc-300">
-      <Link className="border-solid border-2 inline-block hover:border-sky-700" to={name}><img className=" h-auto w-full " src={img} alt={name} ></img></Link>
+    <div className="card flex flex-col justify-left items-star h-full  bg-zinc-100 border-2 border-gray-800/40 rounded-lg">
+      <img className="h-auto w-full rounded-t-md" src={img} alt={name} ></img>
       <p className="text-2xl p-2 text-yellow-950 font-semibold">{name}</p>
       <p className="text-xl p-2">{price}.00 $</p>
-      <div className="quantity-container">
-        {/* <button onClick={decreaseQuantity}>-</button>
-        <span>{quantity}</span>
-        <button onClick={increaseQuantity}>+</button> */}
-      </div>
-      {/* <button id={id} onClick={(ev) => {
-        handleClick(ev, quantity)
-        setQuantity(1)
-        }} className="buy-btn">
-        Buy
-      </button>  */}
-      
+      <Link className='bg-yellow-800 hover:bg-yellow-900 my-4 mx-2 py-2 rounded-lg text-white text-center' to={name}>See product</Link>
     </div>
   )
 }
