@@ -128,19 +128,19 @@ export const setWishlist = async (userId, productId) => {
 
   if (listSnap.exists()) {
     // Detect if the array have or not a listed item //
-    const hasItem = cartSnap.data().cartItems.some((item) => item.id === productId)
+    const hasItem = listSnap.data().list.some((item) => item.id === productId)
     if (hasItem) {
         // First Remove the exact array and add a new one, firestore need the exact object to be removed and updated //
-        await updateDoc(cartRef, {
-          cartItems: arrayRemove({id: productId}),
+        await updateDoc(listRef, {
+          list: arrayRemove({id: productId}),
         })
-        await updateDoc(cartRef, {
-          cartItems: arrayUnion({id: productId}),
+        await updateDoc(listRef, {
+          list: arrayUnion({id: productId}),
       })
     } else {
       // If the item is not in the array, add a new one // 
-      await updateDoc(cartRef, {
-        cartItems: arrayUnion({id: productId, quantity: itemQuantity})
+      await updateDoc(listRef, {
+        list: arrayUnion({id: productId})
       })
     }
   } else {
