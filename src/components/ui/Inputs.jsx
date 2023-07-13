@@ -16,6 +16,6 @@ export function SignUpInput(props) {
 export function LogInInput(props) {
   const { name, type, placeholder, func } = props;
   return(
-    <input onChange={func} className="px-5 py-2 text-xl focus:outline-black focus:outline focus:outline-1" name={name} type={type} placeholder={placeholder}></input>
+    <input onChange={func} className='bg-yellow-700/20 outline-none w-full border-b-[1px] border-black p-4 mb-4 focus:border-b-2 transition-all peer' name={name} type={type} placeholder={placeholder}></input>
   )
 }
