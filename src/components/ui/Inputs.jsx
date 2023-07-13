@@ -3,7 +3,7 @@ export function SignUpInput(props) {
 
   return(
   <li className="flex flex-col mb-2">
-    <fieldset className='relative w-96 peer'>
+    <fieldset className='relative max-w-[24rem] peer'>
       <input required={isRequired} pattern={patternValue} onChange={func} className=' bg-yellow-700/20 outline-none w-full border-b-[1px] border-black p-4 focus:border-b-2 transition-all peer' id={id} type={type} placeholder=' ' name={name} />
       <label htmlFor={id} className='absolute text-sm left-4 transition-transform peer-focus:-translate-y-0 peer-focus:text-sm peer-placeholder-shown:translate-y-4 peer-placeholder-shown:text-base' >{labelText}</label>
     </fieldset>
