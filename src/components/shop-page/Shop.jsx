@@ -5,8 +5,9 @@ import { NotFoundCard } from "./NotFoundCard";
 import { shopContext, shopDispatchContext, filterContext } from "../ShopContext";
 import { FilterSection } from "./FilterSection";
 import { useState, useEffect, useContext } from "react";
+// Firebase functions and database //
 import { db } from "../../Firebase";
-import { collection, getDocs, getDoc } from "firebase/firestore";
+import { collection, getDocs } from "firebase/firestore";
 
 export default function Shop() {
   // Shop context //
@@ -47,7 +48,7 @@ export default function Shop() {
     <main className="min-h-screen">
       <Header section='Collection' link='/' routeName='Home' item='Products'/>
       <FilterSection />
-      <div className="p-12 pt-20 gap-6 justify-center items-center grid grid-cols-1 md:grid-col-2  lg:grid-cols-4 lg:grid-rows-2">
+      <div className="p-12 pt-12 gap-6 justify-center items-center grid grid-cols-1 md:grid-col-2  lg:grid-cols-4 lg:grid-rows-2">
         {loading ? 
         <>
           <SkeletonCard />

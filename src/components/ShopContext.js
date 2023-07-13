@@ -94,31 +94,10 @@ export function shopReducer(shopList, action) {
 // Wishlist Reducer //
 export function wishlistReducer(list, action) {
   switch (action.type) {
-    case 'added': {
-      let [newItem] = action.data;
-      // let [newItem] = dataBase.filter((item,index) => item.id == action.id)
-      // Detect if the list is empty or have the same item selected //
-
-      const hasItem = list.some((item) => (item.id == newItem.id))
-      if (hasItem) {
-        const newList = list.map((item,index) => {
-        if (item.id == newItem.id) {
-          return {...item, newItem}
-        } else {
-          return item
-        }
-        })
-        return newList
-      } else {
-        const newArr = [...list, newItem]
-        return newArr
+    case 'SET-TO-WISHLIST': {
+      return {
+        wishlist: action.data,
       }
-    }
-    case 'remove': {
-      return list.filter((item,index) => item.id != action.id)
-    }
-    default: {
-      throw Error('Unknown action: ' + action.type);
     }
   }
 }
@@ -128,14 +107,6 @@ export function wishlistReducer(list, action) {
 export function cartSectionReducer(cartObj, action) {
   const {cart, totalPrice, cartAmount} = cartObj;
   switch (action.type) {
-    // WIP //
-    // case 'ADD-TO-CART': {
-    //   return {
-    //     cart: action.data,
-    //     cartAmount: (cartAmount + action.quantity),
-    //     totalPrice: (action.price)
-    //   }
-    // }
     case 'SET-TO-CART': {
       return {
         cart: action.data,
@@ -143,40 +114,6 @@ export function cartSectionReducer(cartObj, action) {
         totalPrice: (action.totalPrice)
       }
     }
-    // case 'ADD-TO-CART': {
-    //   // Get Item from data base //
-    //   const [newItem] = action.data;
-    //   // Detect if the item exist in the cart objet array //
-    //   const hasItem = cart.some((item) => item.name === newItem.name)
-
-    //   if (hasItem) {
-    //     const newArr = cart.map(item => {
-    //     if(item.name === newItem.name) {
-    //       return {...item, quantity: item.quantity + action.quantity}
-    //     } else {
-    //       return item
-    //     }
-    //     })
-
-    //   return {
-    //     cart: newArr,
-    //     totalPrice: totalPrice + newItem.price * action.quantity,
-    //     cartAmount: cartAmount + action.quantity,
-    //   };
-    //   } else {
-    //     return {
-    //       cart: [...cart, {
-    //         name: newItem.name,
-    //         price: newItem.price,
-    //         img: newItem.img,
-    //         quantity: action.quantity,
-    //         id: newItem.id.toString()
-    //         }],
-    //       cartAmount: (cartAmount + action.quantity),
-    //       totalPrice: (totalPrice + (newItem.price*action.quantity))
-    //     }
-    //   }
-    //   }
     case 'REMOVE-FROM-CART': {
       const [item] = cart.filter((item) => item.id == action.id);
       return {
