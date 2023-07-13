@@ -24,7 +24,8 @@ export default function Wishlist () {
     <section className=" min-h-screen gap-4">
       <Header section={'Wishlist'} link={'/'} routeName={'Home'} item={'wishlist'} />
       {
-        wishlist.length > 0 ?
+        (wishlist != undefined) 
+        ?
         <div className="grid-container gap-8 p-12 pt-20 justify-center grid grid-cols-1"> 
         {wishlist.map((itemObj,index) =>{ 
         return( <WishlistCard {...itemObj} key={index}/>)
