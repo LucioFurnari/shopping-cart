@@ -56,7 +56,7 @@ export default function Nav(props) {
             'transition ease-in-out 150ms text-xl text-gray-200 rounded-md p-2 inline-block   hover:text-orange-300'
             }}
           >
-            <AiOutlineShoppingCart className=" w-8 h-auto"/> {cartAmount > 0 ? <span className="absolute top-0 right-0">{cartAmount}</span> : null}
+            <AiOutlineShoppingCart className=" w-8 h-auto"/> {cartAmount > 0 ? <span className="absolute top-2 right-0 bg-yellow-900 inline-block rounded-full w-6 h-6 text-sm font-semibold text-center ">{cartAmount}</span> : null}
           </NavLink>
           </li>
           </>
