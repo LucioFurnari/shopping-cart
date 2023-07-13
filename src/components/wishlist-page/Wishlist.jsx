@@ -1,10 +1,24 @@
-import { useContext } from "react"
+import { useContext, useEffect } from "react"
 import Header from "../ui/Header"
 import WishlistCard from "./WishlistCard"
-import { WishListContext } from "../ShopContext"
+import { WishListContext, WishlistDispatchContext, userContext } from "../ShopContext"
+import { getWishlistData } from "../../FirestoreFunctions"
 
 export default function Wishlist () {
+  const userState = useContext(userContext)
   const wishlist = useContext(WishListContext)
+  const wishlistDispatch = useContext(WishlistDispatchContext)
+
+  useEffect(() => {
+    getWishlistData(userState.id)
+    .then((response) => {
+      const {userWishlist} = response;
+      wishlistDispatch({
+        type: 'SET-TO-WISHLIST',
+        data: userWishlist
+      })
+    })
+  }, [])
 
   return(
     <section className=" min-h-screen gap-4">
