@@ -26,18 +26,9 @@ export default function CartCard(props) {
         )
       }
     })
-    // dispatch({
-    //   type: 'REMOVE-FROM-CART',
-    //   id: id
-    // });
   };
 
   function handleDecreaseAmount() {
-    
-     // dispatch({
-      //   type: 'DECREASE-AMOUNT',
-      //   id: id
-      // })
     setDisableButton(true)
     setItemToCart(userState.id, id, - 1)
     .then((res) =>{ if (res){
@@ -55,10 +46,6 @@ export default function CartCard(props) {
     })
   }
   function handleIncreaseAmount() {
-      // dispatch({
-      //   type: 'INCREASE-AMOUNT',
-      //   id: id
-      // })
     setDisableButton(true)
     setItemToCart(userState.id, id, 1)
     .then((res) =>{ if (res){
