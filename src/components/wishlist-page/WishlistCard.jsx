@@ -1,29 +1,22 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
-import { cartDispatchContext } from "../ShopContext";
 
 export default function WishlistCard(props) {
-  const {name, price, img, handlePurchase, handleCart, handleRemove,id} = props;
-  const dispatch = useContext(cartDispatchContext)
+  const {name, price, img, id} = props;
 
-  function handleAddToCart(ev) {
-    dispatch({
-      type: 'ADD-TO-CART',
-      id: id,
-      quantity: 0, // Maybe change the value for 1 // 
-    })
-  }
 
   return (
-    <div className="flex flex-col grow items-center justify-center bg-zinc-300">
-      <Link to={`/shop/${name}`}>
-        <img className=" w-full" src={img} alt={name}></img>
-      </Link>
-      <h3 className="text-2xl pt-4 pb-4">{name}</h3>
-      <p className="text-xl pb-4">{price}.00 $</p>
-      <button className=" pr-6 pl-6 pt-4 pb-4 bg-yellow-800 text-yellow-50 mb-4">Buy it now</button>
-      <button onClick={handleAddToCart}  className=" pr-6 pl-6 pt-4 pb-4 bg-yellow-800 text-yellow-50 mb-4">Add to the cart</button>
-      <button className=" pr-6 pl-6 pt-4 pb-4 bg-yellow-800 text-yellow-50 mb-4">Remove</button>
+    <div className="bg-zinc-300 flex flex-col items-center xl:flex-row xl:max-w-7xl">
+      <div className="bg-zinc-300 flex flex-col items-center xl:flex-row xl:max-w-7xl">
+      <img src={img}></img>
+      <div className="xl:ml-8">
+        <p className="text-3xl pt-4">{name}</p>
+        <p className="text-2xl pt-4">Price: {price}.00 $</p>
+        <Link className=" bg-yellow-900 hover:bg-yellow-950 text-white p-4 rounded-lg mt-6 inline-block" to={`/shop/${name}`}>
+        To the product
+        </Link>
+      </div>
+      </div>
     </div>
   )
 }
