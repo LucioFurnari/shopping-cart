@@ -6,7 +6,7 @@ import { getWishlistData } from "../../FirestoreFunctions"
 
 export default function Wishlist () {
   const userState = useContext(userContext)
-  const wishlist = useContext(WishListContext)
+  const { wishlist } = useContext(WishListContext)
   const wishlistDispatch = useContext(WishlistDispatchContext)
 
   useEffect(() => {
