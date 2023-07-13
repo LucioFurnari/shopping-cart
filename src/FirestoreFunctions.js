@@ -150,3 +150,27 @@ export const setWishlist = async (userId, productId) => {
   }
   return true;
 }
+
+export const getWishlistData = async (userId) => {
+  const productsList = collection(db, 'products');
+  const listRef = doc(db, 'wishlist', userId)
+  const listSnap = await getDoc(listRef)
+  
+  // Create a query
+  const userWishlist = [];
+
+  const requestList = listSnap.data().list.map( async (item) => {
+    const queryProduct = query(productsList, where('id', '==', item.id))
+    // return object with product data and quantity // 
+    return {itemData: await getDocs(queryProduct)}
+  })
+
+  const querySnapshots = await Promise.all(requestList)
+  querySnapshots.forEach((querySnapshot) => {
+    querySnapshot.itemData.forEach((doc) => {
+      userWishlist.push({...doc.data()});
+    });
+  });
+
+  return ({ userWishlist })
+}
